@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace WoowaWebhooks\Services;
 
 use WoowaWebhooks\Request;
+use WoowaWebhooks\Services\Exceptions\MessagingException;
 
 /**
  * Handles sending messages via WhatsApp.
@@ -13,9 +14,14 @@ final class WhatsAppMessenger implements MessageHandler
 {
     /**
      * The HTTP client used for sending requests.
+     *
+     * @var Request
      */
     private Request $request;
 
+    /**
+     * Constructor initializes the HTTP client.
+     */
     public function __construct()
     {
         $this->request = new Request();
@@ -26,18 +32,33 @@ final class WhatsAppMessenger implements MessageHandler
      *
      * @param string $message The message to send.
      * @param string $to The recipient's phone number.
-     * @return bool|string True on success, or the error message on failure.
+     * @return void
      */
-    public function send_message (string $message, string $to): bool | string
+    public function send_message(string $message, string $to): void
     {
-        return $this->__('send_message', $message, $to);
+        $this->send_request('send_message', $message, $to);
     }
 
-    private function __ (string $url, string $message, string $to, ?array $data = null): bool | string
+    /**
+     * Sends a request to the given URL with the provided message and recipient.
+     *
+     * @param string $url The URL to send the request to.
+     * @param string $message The message to send.
+     * @param string $to The recipient's phone number.
+     * @param array|null $data Additional data to include in the request.
+     * @return void
+     * @throws MessagingException If the request fails.
+     */
+    private function send_request(string $url, string $message, string $to, ?array $data = null): void
     {
-        $body  = $this->base_params($message, $to) + (array) $data;
+        // Combine base parameters with additional data
+        $body = $this->base_params($message, $to) + (array) $data;
 
-        return $this->request->send('post', $url, $body);
+        // Send the request using the HTTP client
+        $request = $this->request->send('post', $url, $body);
+
+        // Throw an exception if the request fails
+        if ($request !== true) throw new MessagingException();
     }
 
     /**
@@ -47,7 +68,7 @@ final class WhatsAppMessenger implements MessageHandler
      * @param string $to The recipient's phone number.
      * @return array The base parameters for the request.
      */
-    private function base_params (string $message, string $to): array
+    private function base_params(string $message, string $to): array
     {
         // Return the base parameters as an associative array
         return [

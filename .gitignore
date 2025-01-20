@@ -4,6 +4,9 @@ readme.pdf
 # Ignore vendor directory
 vendor/
 
+# Ignore php error log file
+php_errorlog
+
 # Ignore composer lock file
 composer.lock
 

@@ -13,11 +13,21 @@ function env (): object
     return (object) $_ENV;
 }
 
+/**
+ * Debugs a payload by dumping its contents.
+ *
+ * @param mixed $payload The payload to debug.
+ * @return string The debug output.
+ */
 function debug (mixed $payload): string
 {
+    // Start output buffering
     ob_start();
+    
+    // Dump the payload
     var_dump($payload);
 
+    // Get the contents of the output buffer and clean it
     return ob_get_clean();
 }
 

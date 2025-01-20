@@ -11,7 +11,7 @@ interface MessageHandler
      *
      * @param string $message The message to send.
      * @param string $to The recipient's phone number.
-     * @return bool|string True on success, or the error message on failure.
+     * @return void
      */
-    public function send_message (string $message, string $to): bool | string;
+    public function send_message(string $message, string $to): void;
 }

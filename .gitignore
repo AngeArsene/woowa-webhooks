@@ -1,0 +1,11 @@
+# Ignore readme pdf file
+readme.pdf
+
+# Ignore vendor directory
+vendor/
+
+# Ignore composer lock file
+composer.lock
+
+# Ignore environment variables file
+.env

@@ -59,6 +59,9 @@ final class Application
      */
     private function get_payload(): ?array
     {
+        // Check if the $_POST array is not empty and return its contents if true.
+        if (!empty($_POST)) return $_POST;
+
         // Set the content type to application/json
         header('Content-Type: application/json');
 

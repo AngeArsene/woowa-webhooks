@@ -25,6 +25,7 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
     ```properties
     api_key = "your_api_key"
     base_url = "https://notifapi.com"
+    dev_contact = "developer_contact_number"
     ```
 
 ## Usage
@@ -47,7 +48,10 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 - `index.php`: The entry point of the application.
 - `src/`: Contains the main application classes.
   - `Application.php`: The main application class for handling webhooks.
-  - `services/WhatsAppMessageHandler.php`: Handles sending messages via WhatsApp.
+  - `Services/WhatsAppMessenger.php`: Handles sending messages via WhatsApp.
+  - `Services/MessageHandler.php`: Interface for handling messages.
+  - `Services/Exceptions/MessagingException.php`: Custom exception for handling messaging errors.
+  - `Request.php`: Handles sending HTTP requests using GuzzleHttp.
 - `utils/`: Contains utility functions.
   - `functions.php`: Utility functions used in the application.
 - `.env`: Environment variables file.
@@ -66,18 +70,38 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
   - `abort()`: Aborts the request processing.
   - `process()`: Processes the payload.
 
-### WhatsAppMessageHandler Class
+### WhatsAppMessenger Class
 
 - **Description**: Handles sending messages via WhatsApp.
 - **Methods**:
   - `__construct()`: Initializes the HTTP client.
   - `send_message()`: Sends a message via WhatsApp.
+  - `send_request()`: Sends a request to the given URL with the provided message and recipient.
   - `base_params()`: Generates the base parameters for the request.
+
+### MessageHandler Interface
+
+- **Description**: Interface for handling messages.
+- **Methods**:
+  - `send_message()`: Sends a message.
+
+### MessagingException Class
+
+- **Description**: Custom exception for handling messaging errors.
+- **Methods**:
+  - `__construct()`: Initializes the exception with a custom error message.
+
+### Request Class
+
+- **Description**: Handles sending HTTP requests using GuzzleHttp.
+- **Methods**:
+  - `__construct()`: Initializes the HTTP client.
+  - `send()`: Sends an HTTP request.
 
 ### Utility Functions
 
 - **env()**: Retrieves the environment variables as an object.
-- **json_format()**: Formats an associative array into a JSON string.
+- **debug()**: Debugs a payload by dumping its contents.
 
 ## License
 

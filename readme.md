@@ -8,7 +8,7 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/woowa-webhooks.git
+    git clone https://github.com/AngeArsene/woowa-webhooks.git
     ```
 
 2. Navigate to the project directory:

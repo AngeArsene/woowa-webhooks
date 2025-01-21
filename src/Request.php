@@ -50,7 +50,7 @@ final class Request
         $method = strtoupper($method);
         
         // Format the body as JSON
-        $body = json_format($body);
+        $body = json_encode($body);
 
         // Create a new HTTP request
         $request = new Psr7Request($method, env()->base_url.$to, self::HEADERS, $body);

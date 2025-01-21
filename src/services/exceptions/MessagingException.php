@@ -22,5 +22,21 @@ final class MessagingException extends Exception
     * The error message.
     * @var string
     */
-    protected $message = "An error occurred while handling the message.";
+    protected $message;
+
+    /**
+     * Default error message for the exception.
+     */
+    private const DEFAULT_MESSAGE = "An error occurred while handling the message.";
+
+    /**
+     * MessagingException constructor.
+     *
+     * @param string $message Custom error message.
+     */
+    public function __construct(string $message = self::DEFAULT_MESSAGE)
+    {
+        $this->message = $message;
+        parent::__construct($message, $this->code);
+    }
 }

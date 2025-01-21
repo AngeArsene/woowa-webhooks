@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace WoowaWebhooks\Services;
 
+/**
+ * Interface for handling messages.
+ */
 interface MessageHandler
 {
     /**

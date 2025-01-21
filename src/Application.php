@@ -32,12 +32,12 @@ final class Application
         // Initialize environment variables
         self::init_env();
         
+        // Retrieve the payload from the request
+        $payload = $this->get_payload();
+        
         // Initialize WhatsAppMessenger
         $this->whatsapp = new WhatsAppMessenger();
         
-        // Retrieve the payload from the request
-        $payload = $this->get_payload();
-
         // Handle the payload
         $this->handle($payload);
     }
@@ -77,8 +77,6 @@ final class Application
             // If the payload is empty, abort; otherwise, process the payload
             empty($payload) ? $this->abort() : $this->process($payload);
         } catch (Exception $error) {
-            // Set the HTTP response code to the error code
-            http_response_code($error->getCode());
             // Log the error message
             error_log($error->getMessage());
         }

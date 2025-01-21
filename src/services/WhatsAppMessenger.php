@@ -58,7 +58,7 @@ final class WhatsAppMessenger implements MessageHandler
         $request = $this->request->send('post', $url, $body);
 
         // Throw an exception if the request fails
-        if ($request !== true) throw new MessagingException();
+        if ($request !== true) throw new MessagingException($request);
     }
 
     /**

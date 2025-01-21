@@ -53,9 +53,7 @@ final class Request
         $body = json_format($body);
 
         // Create a new HTTP request
-        $request = new Psr7Request(
-            $method, env()->base_url.$to, self::HEADERS, $body
-        );
+        $request = new Psr7Request($method, env()->base_url.$to, self::HEADERS, $body);
 
         try {
             // Send the HTTP request

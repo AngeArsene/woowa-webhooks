@@ -90,6 +90,7 @@ final class Application
      */
     private function abort(): void
     {
+        // Send a message to the developer contact indicating that an invalid payload was received
         $this->whatsapp->send_message('Invalid payload received.', env()->dev_contact);
     }
 

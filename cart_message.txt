@@ -1,4 +1,4 @@
-Hello [first-name]! 👋 Salut [name]! 👋
+Hello [first-name]! 👋 Salut [first-name]! 👋
 
 Nous avons remarqué que vous avez laissé des articles dans votre panier !
 We noticed that you left some items in your cart !

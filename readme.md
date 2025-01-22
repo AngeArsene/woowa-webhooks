@@ -110,6 +110,8 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 
 - **env()**: Retrieves the environment variables as an object.
 - **debug()**: Debugs a payload by dumping its contents.
+- **render()**: Renders a template with the given variables.
+- **replace_placeholders()**: Replaces placeholders in a template with the given variables.
 
 ## License
 

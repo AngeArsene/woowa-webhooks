@@ -21,8 +21,5 @@
             "email": "nkenmandenga@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
-    "require-dev": {
-        "laravel/tinker": "^3.0@dev"
-    }
+    "minimum-stability": "dev"
 }

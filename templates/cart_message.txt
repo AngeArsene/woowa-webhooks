@@ -12,7 +12,7 @@ You left some items in your cart !
 - *Total:* [cart_total]
 
 Vous pouvez finaliser votre achat ici :
-You can complete your purchase here:
+You can complete your purchase here :
 
 [checkout_url]
 

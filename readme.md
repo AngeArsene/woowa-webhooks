@@ -26,6 +26,7 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
     api_key = "your_api_key"
     base_url = "https://notifapi.com"
     dev_contact = "developer_contact_number"
+    admins = "admin1_phone,admin2_phone"
     ```
 
 ## Usage
@@ -46,8 +47,8 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 3. To send an abandoned cart notification, send a POST request with the payload:
     ```json
     {
-        "cart_id": "67890",
-        "status": "abandoned"
+        "checkout_url": "https://example.com/checkout",
+        "phone": "customer_phone_number"
     }
     ```
 
@@ -77,6 +78,8 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
   - `handle()`: Handles the payload by either aborting or processing it.
   - `abort()`: Aborts the request processing.
   - `process()`: Processes the payload.
+  - `process_order()`: Processes an order payload.
+  - `process_abandoned_cart()`: Processes an abandoned cart payload.
 
 ### WhatsAppMessenger Class
 
@@ -112,6 +115,7 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 - **debug()**: Debugs a payload by dumping its contents.
 - **render()**: Renders a template with the given variables.
 - **replace_placeholders()**: Replaces placeholders in a template with the given variables.
+- **get_phone_number()**: Retrieves the phone number from the provided cart URL.
 
 ## License
 

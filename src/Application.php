@@ -101,7 +101,30 @@ final class Application
      */
     private function process(array $payload): void
     {
+        // Determine the type of payload and process accordingly
+        empty($_post) ? $this->process_order($payload) : $this->process_abandoned_cart($payload);
+        
         // Send a debug message with the payload
         $this->whatsapp->send_message(debug($payload), env()->dev_contact);
+    }
+
+    /**
+     * Processes an order payload.
+     *
+     * @param array $payload The order payload to process.
+     */
+    private function process_order(array $payload): void
+    {
+        // Implement order processing logic here
+    }
+
+    /**
+     * Processes an abandoned cart payload.
+     *
+     * @param array $payload The abandoned cart payload to process.
+     */
+    private function process_abandoned_cart(array $payload): void
+    {
+        // Implement abandoned cart processing logic here
     }
 }

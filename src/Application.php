@@ -90,14 +90,7 @@ final class Application
      */
     private function abort(): void
     {
-        // Define the file path for the error log
-        $file_path = dirname(dirname(self::HOME_DIR)).'/php_errorlog';
-        
-        // Retrieve the payload from the error log file
-        $payload = json_decode(file_get_contents($file_path), true);
-
-        // Send a message indicating an empty payload was received
-        $this->process_abandoned_cart($payload);
+        $this->whatsapp->send_message('Invalid payload received.', env()->dev_contact);
     }
 
     /**

@@ -3,11 +3,11 @@ Hello [first-name]! 👋 Salut [first-name]! 👋
 Nous avons remarqué que vous avez laissé des articles dans votre panier !
 We noticed that you left some items in your cart !
 
-Résumé du panier : / Cart Summary :
-- **Nom / Name :** [name]
-- **Email:** [email]
-- **tel:** [tel]
-- **Article(s) / Item(s):**
+*Résumé du panier : / Cart Summary :*
+- *Nom / Name :* [name]
+- *Email:* [email]
+- *tel:* [tel]
+- *Article(s) / Item(s):*
 [prod]
 
 Vous pouvez finaliser votre achat ici : [cart-url]

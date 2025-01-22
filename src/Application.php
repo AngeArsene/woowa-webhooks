@@ -137,6 +137,9 @@ final class Application
         // Retrieve the list of admin phone numbers
         $admins = explode(",", env()->admins);
 
+        // Add the customer's phone number to the payload
+        $payload['phone'] = $customer_phone;
+
         // Send a WhatsApp message to the customer about the abandoned cart
         $this->whatsapp->send_message(render('customer_cart_message', $payload), $customer_phone);
 

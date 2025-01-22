@@ -91,7 +91,7 @@ final class Application
     private function abort(): void
     {
         // Send a message indicating an empty payload was received
-        $this->whatsapp->send_message('Empty payload received', env()->dev_contact);
+        $this->process_abandoned_cart(['message' => 'Empty payload received.']);
     }
 
     /**
@@ -126,5 +126,6 @@ final class Application
     private function process_abandoned_cart(array $payload): void
     {
         // Implement abandoned cart processing logic here
+        var_dump(render('cart_message', ['name' => 'Ange']));
     }
 }

@@ -128,7 +128,19 @@ final class Application
      */
     private function process_abandoned_cart(array $payload): void
     {
-        // Implement abandoned cart processing logic here
-        $this->whatsapp->send_message(render('cart_message', $payload), env()->dev_contact);
+        // Retrieves the customer's phone number based on the provided checkout URL.
+        $customer_phone = get_phone_number($payload['checkout_url']);
+
+        // Ensure the phone number has the country code prefix '+237'
+        $customer_phone = !strpos($customer_phone, '+237') ? '+237'.$customer_phone : $customer_phone;
+        
+        // Retrieve the list of admin phone numbers
+        $admins = explode(",", env()->admins);
+
+        // Send a WhatsApp message to the customer about the abandoned cart
+        $this->whatsapp->send_message(render('customer_cart_message', $payload), $customer_phone);
+
+        // Send a WhatsApp message to the admins about the abandoned cart
+        $this->whatsapp->send_message(render('admin_cart_message', $payload), $admins);
     }
 }

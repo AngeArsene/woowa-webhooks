@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+use DOMXPath;
+use DOMDocument;
+use GuzzleHttp\Client;
+
 /**
  * Retrieves the environment variables as an object.
  *
@@ -66,4 +70,49 @@ function replace_placeholders(string $template, ?array $variables = [])
     }
     // Return the template with placeholders replaced
     return $template;
+}
+
+/**
+ * Retrieves the phone number from the provided cart URL.
+ *
+ * This function sends a GET request to the cart URL using a Guzzle client, then parses the response to extract the phone number from the billing form data.
+ *
+ * @param string $cart_url The URL of the cart page
+ * @return string|null The extracted phone number, or null if an error occurs
+ */
+function get_phone_number(string $cart_url) : ?string
+{
+    // Step 1: Create a Guzzle client
+    $client = new Client();
+
+    try {
+
+        // Step 2: Send a GET request to the URL
+        $response = $client->get($cart_url);
+
+        // Step 3: Load the HTML response
+        $html = (string) $response->getBody();
+        libxml_use_internal_errors(true); // Suppress warnings from malformed HTML
+        $dom = new DOMDocument();
+        $dom->loadHTML($html);
+        $xpath = new DOMXPath($dom);
+
+        // Step 4: Extract pre-filled form data
+        $formData = [];
+
+        // Get all input fields
+        $inputs = $xpath->query('//input');
+        foreach ($inputs as $input) {
+            if ($input instanceof DOMElement) { // Check if it's a DOMElement
+                $name = $input->getAttribute('name');
+                $value = $input->getAttribute('value');
+                if ($name) {
+                    $formData[$name] = $value; // Store name-value pairs
+                }
+            }
+        }
+
+        return $formData['billing_phone'];
+
+    } catch (\Throwable $th) { return null; }
 }

@@ -34,8 +34,15 @@ final class WhatsAppMessenger implements MessageHandler
      * @param string $to The recipient's phone number.
      * @return void
      */
-    public function send_message(string $message, string $to): void
+    public function send_message(string $message, array|string $to): void
     {
+        if (is_array($to)) {
+            foreach ($to as $recipient) {
+                $this->send_request('send_message', $message, $recipient);
+            }
+            return;
+        }
+
         $this->send_request('send_message', $message, $to);
     }
 

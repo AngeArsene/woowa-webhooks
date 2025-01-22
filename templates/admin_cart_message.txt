@@ -1,0 +1,11 @@
+*Hello Admin,*
+
+A user has left items in their cart! 👋
+
+*Cart Summary:*
+- *Name:* [first_name] [last_name]
+- *Email:* [email]
+- *Phone:* [phone]
+- *Item(s):*
+    [product_names]
+- *Total:* [cart_total]

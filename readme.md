@@ -2,7 +2,7 @@
 
 ## Description
 
-Integrate WhatsApp order notifications into your WooCommerce store with this package. It enables real-time updates for customers via WhatsApp whenever an order is placed, updated, or completed, enhancing customer engagement and improving order tracking.
+Integrate WhatsApp order notifications into your WooCommerce store with this package. It enables real-time updates for customers via WhatsApp whenever an order is placed, updated, or completed, enhancing customer engagement and improving order tracking. Additionally, it sends notifications for abandoned carts to encourage customers to complete their purchases.
 
 ## Installation
 
@@ -40,6 +40,14 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
     {
         "order_id": "12345",
         "status": "completed"
+    }
+    ```
+
+3. To send an abandoned cart notification, send a POST request with the payload:
+    ```json
+    {
+        "cart_id": "67890",
+        "status": "abandoned"
     }
     ```
 

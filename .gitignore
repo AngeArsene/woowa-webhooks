@@ -1,6 +1,9 @@
 # Ignore readme pdf file
 readme.pdf
 
+# Ignore readme_tmp html file
+readme_tmp.html
+
 # Ignore vendor directory
 vendor/
 

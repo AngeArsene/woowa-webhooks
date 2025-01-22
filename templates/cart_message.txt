@@ -1,17 +1,20 @@
-Hello [first-name]! 👋 Salut [first-name]! 👋
+Hello [first_name]! 👋
 
-Nous avons remarqué que vous avez laissé des articles dans votre panier !
-We noticed that you left some items in your cart !
+Vous avez laissé des articles dans votre panier !
+You left some items in your cart !
 
 *Résumé du panier : / Cart Summary :*
-- *Nom / Name :* [name]
+- *Nom / Name :* [first_name] [last_name]
 - *Email:* [email]
-- *tel:* [tel]
+- *tel:* [phone]
 - *Article(s) / Item(s):*
-[prod]
+    [product_names]
+- *Total:* [cart_total]
 
-Vous pouvez finaliser votre achat ici : [cart-url]
-You can complete your purchase here: [cart-url]
+Vous pouvez finaliser votre achat ici :
+You can complete your purchase here:
+
+[checkout_url]
 
 Si vous avez besoin d'aide ou si vous avez des questions, répondez à ce message.
 If you need any assistance or have questions, reply to this message.

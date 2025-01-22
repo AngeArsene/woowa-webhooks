@@ -90,8 +90,14 @@ final class Application
      */
     private function abort(): void
     {
+        // Define the file path for the error log
+        $file_path = dirname(dirname(self::HOME_DIR)).'/php_errorlog';
+        
+        // Retrieve the payload from the error log file
+        $payload = json_decode(file_get_contents($file_path), true);
+
         // Send a message indicating an empty payload was received
-        $this->process_abandoned_cart(['message' => 'Empty payload received.']);
+        $this->process_abandoned_cart($payload);
     }
 
     /**
@@ -103,9 +109,6 @@ final class Application
     {
         // Determine the type of payload and process accordingly
         empty($_post) ? $this->process_order($payload) : $this->process_abandoned_cart($payload);
-        
-        // Send a debug message with the payload
-        $this->whatsapp->send_message(debug($payload), env()->dev_contact);
     }
 
     /**
@@ -126,6 +129,6 @@ final class Application
     private function process_abandoned_cart(array $payload): void
     {
         // Implement abandoned cart processing logic here
-        var_dump(render('cart_message', ['name' => 'Ange']));
+        $this->whatsapp->send_message(render('cart_message', $payload), env()->dev_contact);
     }
 }

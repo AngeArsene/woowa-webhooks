@@ -122,7 +122,7 @@ final class Application
     private function process_abandoned_cart(array $payload): void
     {
         // Retrieves the customer's phone number based on the provided checkout URL.
-        $customer_phone = get_phone_number($payload['checkout_url']);
+        $customer_phone = get_phone_number($payload['checkout_url']) ?? $payload['phone'];
 
         // Ensure the phone number has the country code prefix '+237'
         $customer_phone = !strpos($customer_phone, '+237') ? '+237'.$customer_phone : $customer_phone;

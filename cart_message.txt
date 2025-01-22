@@ -1,0 +1,19 @@
+Hello [first-name]! 👋 Salut [name]! 👋
+
+Nous avons remarqué que vous avez laissé des articles dans votre panier à l'adresse [cart-url] !
+We noticed that you left some items in your cart at [Cart URL]!
+
+Résumé du panier : / Cart Summary :
+- **Nom / Name :** [name]
+- **Email:** [email]
+- **tel:** [tel]
+- **Article(s) / Item(s):** 
+[prod]
+
+Vous pouvez finaliser votre achat ici : [cart-url]
+You can complete your purchase here: [cart-url]
+
+Si vous avez besoin d'aide ou si vous avez des questions, répondez à ce message.
+If you need any assistance or have questions, reply to this message.
+
+Thank you for shopping with us! 🛒

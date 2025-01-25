@@ -180,7 +180,9 @@ function get_image_links_from(string $html): array
 
     // Loop through the images and extract the 'src' attribute
     foreach ($images as $img) {
-        $imageLinks[] = $img->getAttribute('src');
+        if ($img instanceof DOMElement) {
+            $imageLinks[] = $img->getAttribute('src');
+        }
     }
 
     return $imageLinks;

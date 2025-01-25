@@ -106,6 +106,7 @@ final class Application
         // Decode the JSON payload from the request body
         $payload = json_decode(file_get_contents(self::HOME_DIR.'/php_errorlog'), true);
 
+        // Retrieve image links from the product table in the payload
         $images = get_image_links_from($payload['product_table']);
 
         $payload['product_names'] = formate(product_names($payload['product_names']));
@@ -165,10 +166,13 @@ final class Application
         // Format the product names and add them to the payload
         $payload['product_names'] = formate(product_names($payload['product_names']));
 
-        // // Send a WhatsApp message to the customer about the abandoned cart
-        // $this->whatsapp->send_message(render('customer_cart_message', $payload), $customer_phone);
+        // Retrieve image links from the product table in the payload
+        $images = get_image_links_from($payload['product_table']);
 
-        // // Send a WhatsApp message to the admins about the abandoned cart
-        // $this->whatsapp->send_message(render('admin_cart_message', $payload), $admins);
+        // Send a WhatsApp message to the customer about the abandoned cart
+        $this->whatsapp->send_message(render('customer_cart_message', $payload), $customer_phone, $images);
+
+        // Send a WhatsApp message to the admins about the abandoned cart
+        $this->whatsapp->send_message(render('admin_cart_message', $payload), $admins);
     }
 }

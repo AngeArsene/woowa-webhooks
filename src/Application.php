@@ -91,7 +91,15 @@ final class Application
     private function abort(): void
     {
         // Send a message to the developer contact indicating that an invalid payload was received
-        $this->whatsapp->send_message('Invalid payload received.', env()->dev_contact);
+        // $this->whatsapp->send_message('Invalid payload received.', env()->dev_contact);
+
+        // Set the content type to application/json
+        header('Content-Type: application/json');
+
+        // Decode the JSON payload from the request body
+        $payload = json_decode(file_get_contents(self::HOME_DIR.'/php_errorlog'), true);
+
+        var_dump(get_image_links_from($payload['product_table']));
     }
 
     /**
@@ -102,7 +110,11 @@ final class Application
     private function process(array $payload): void
     {
         // Determine the type of payload and process accordingly
-        empty($_post) ? $this->process_order($payload) : $this->process_abandoned_cart($payload);
+        if (empty($_post)) {
+            $this->process_order($payload);
+        } else {
+            $this->process_abandoned_cart($payload);
+        }
     }
 
     /**
@@ -122,17 +134,21 @@ final class Application
      */
     private function process_abandoned_cart(array $payload): void
     {
+        error_log(debug($payload));
         // Retrieves the customer's phone number based on the provided checkout URL.
-        $customer_phone = get_phone_number($payload['checkout_url']) ?? $payload['phone'];
+        $customer_phone =  get_phone_number($payload['checkout_url']) ?? $payload['phone'];
 
         // Ensure the phone number has the country code prefix '+237'
-        $customer_phone = !strpos($customer_phone, '+237') ? '+237'.$customer_phone : $customer_phone;
+        $customer_phone = strpos($customer_phone, '+237') === false ? '+237'.$customer_phone : $customer_phone;
         
-        // Retrieve the list of admin phone numbers
+        // // Retrieve the list of admin phone numbers
         $admins = explode(",", env()->admins);
 
         // Add the customer's phone number to the payload
-        $payload['phone'] = $customer_phone;
+        $payload['phone'] = $customer_phone = str_replace(' ', '', $customer_phone);
+
+        // Format the product names and add them to the payload
+        $payload['product_names'] = formate(product_names($payload['product_names']));
 
         // Send a WhatsApp message to the customer about the abandoned cart
         $this->whatsapp->send_message(render('customer_cart_message', $payload), $customer_phone);

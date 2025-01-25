@@ -1,11 +1,8 @@
-*Hello Admin,*
+*Nouvelle alerte : Il y a un nouveau panier abandonné !*
 
-A user has left items in their cart! 👋
-
-*Cart Summary:*
-- *Name:* [first_name] [last_name]
-- *Email:* [email]
-- *Phone:* [phone]
-- *Item(s):*
-    [product_names]
-- *Total:* [cart_total]
+- *Nom du client :* [first_name] [last_name]
+- *Email :* [email]
+- *Téléphone :* [phone]
+- *Produit(s):* 
+[product_names]
+- *Total du panier en XAF :* [cart_total]

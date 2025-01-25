@@ -116,3 +116,72 @@ function get_phone_number(string $cart_url) : ?string
 
     } catch (\Throwable $th) { return null; }
 }
+
+/**
+ * Splits a string of product names into an array.
+ *
+ * This function takes a string of product names separated by commas and spaces,
+ * and splits it into an array. If the last product name contains an ampersand (&),
+ * it will be split further into separate names.
+ *
+ * @param string $products A string of product names separated by commas and spaces.
+ *                         The last product name can contain an ampersand (&) to separate names.
+ * @return array An array of product names.
+ */
+function product_names(string $products): array
+{
+    $product_names = explode(', ', $products);
+
+    $last = explode(' & ', array_pop($product_names));
+
+    return array_merge($product_names, $last);
+}
+
+/**
+ * Formats an array of product names into a string with each product name followed by a line of dashes.
+ *
+ * @param array $product_names An array of product names to be formatted.
+ * @return string A formatted string where each product name is followed by a line of dashes.
+ */
+function formate(array $product_names): string
+{
+    $products = '';
+
+    foreach ($product_names as $product) {
+        $products .= $product."\n";
+        for ($i = 0; $i < strlen($product); $i++) {
+            $products .= '-';
+        }
+        $products .= "\n";
+    }
+
+    return $products;
+}
+
+function get_image_links_from(string $html): array
+{
+    // Create a new DOMDocument instance
+    $dom = new DOMDocument();
+
+    // Suppress warnings due to malformed HTML
+    libxml_use_internal_errors(true);
+    
+    // Load the HTML
+    $dom->loadHTML($html);
+    
+    // Restore error handling
+    libxml_clear_errors();
+
+    // Get all image elements
+    $images = $dom->getElementsByTagName('img');
+    
+    // Initialize an array to hold image links
+    $imageLinks = [];
+
+    // Loop through the images and extract the 'src' attribute
+    foreach ($images as $img) {
+        $imageLinks[] = $img->getAttribute('src');
+    }
+
+    return $imageLinks;
+}

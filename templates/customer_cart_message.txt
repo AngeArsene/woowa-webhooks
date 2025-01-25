@@ -1,6 +1,7 @@
 Hello [first_name]! 👋
 
 Vous avez laissé des articles dans votre panier !
+----------------------------------
 You left some items in your cart !
 
 *Résumé du panier : / Cart Summary :*
@@ -8,15 +9,17 @@ You left some items in your cart !
 - *Email:* [email]
 - *tel:* [phone]
 - *Article(s) / Item(s):*
-    [product_names]
-- *Total:* [cart_total]
+[product_names]
+- *Total:* [cart_total] FCFA
 
 Vous pouvez finaliser votre achat ici :
+-------------------------------------
 You can complete your purchase here :
 
 [checkout_url]
 
 Si vous avez besoin d'aide ou si vous avez des questions, répondez à ce message.
+--------------------------------------------------------------------
 If you need any assistance or have questions, reply to this message.
 
 Thank you for shopping with us! 🛒

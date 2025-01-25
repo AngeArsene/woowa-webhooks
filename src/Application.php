@@ -97,21 +97,18 @@ final class Application
      */
     private function abort(): void
     {
-        // Send a message to the developer contact indicating that an invalid payload was received
-        // $this->whatsapp->send_message('Invalid payload received.', env()->dev_contact);
-
         // Set the content type to application/json
         header('Content-Type: application/json');
 
         // Decode the JSON payload from the request body
-        $payload = json_decode(file_get_contents(self::HOME_DIR.'/php_errorlog'), true);
+        $payload = json_decode(file_get_contents(self::HOME_DIR.'/ac_payload_example'), true);
 
         // Retrieve image links from the product table in the payload
         $images = get_image_links_from($payload['product_table']);
 
         $payload['product_names'] = formate(product_names($payload['product_names']));
 
-        // Send a message to the developer contact indicating that an invalid payload was received
+        // Send a WhatsApp message to the developer about the aborted request
         $this->whatsapp->send_message(render('customer_cart_message', $payload), env()->dev_contact, $images);
     }
 

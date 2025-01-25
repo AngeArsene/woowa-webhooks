@@ -47,6 +47,19 @@ final class WhatsAppMessenger implements MessageHandler
     }
 
     /**
+     * Sends an image URL via WhatsApp.
+     *
+     * @param string|null $message The message to send along with the image.
+     * @param string $url The URL of the image to send.
+     * @param string $to The recipient's phone number.
+     * @return void
+     */
+    private function send_image_url(?string $message = '', string $url, string $to): void
+    {
+        $this->send_request('send_image_url', $message, $to, ['url' => $url]);
+    }
+
+    /**
      * Sends a request to the given URL with the provided message and recipient.
      *
      * @param string $url The URL to send the request to.

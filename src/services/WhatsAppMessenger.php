@@ -28,34 +28,60 @@ final class WhatsAppMessenger implements MessageHandler
     }
 
     /**
-     * Sends a message via WhatsApp.
+     * Sends a message or an image URL via WhatsApp.
      *
      * @param string $message The message to send.
-     * @param string $to The recipient's phone number.
+     * @param array|string $to The recipient's phone number(s).
+     * @param string|array|null $url The URL(s) of the image(s) to send.
      * @return void
      */
-    public function send_message(string $message, array|string $to): void
+    public function send_message(string $message, array|string $to, string|array|null $url = null): void
     {
-        if (is_array($to)) {
-            foreach ($to as $recipient) {
-                $this->send_request('send_message', $message, $recipient);
+        if ($url === null) {
+            if (is_array($to)) {
+                foreach ($to as $recipient) {
+                    $this->send_request('send_message', $message, $recipient);
+                }
+                return;
+            }
+
+            $this->send_request('send_message', $message, $to);
+        } else {
+            if (is_array($to)) {
+                foreach ($to as $recipient) {
+                    $this->send_image_url($url, $recipient, $message);
+                }
+                return;
+            }
+
+            $this->send_image_url($url, $to, $message);
+        }
+    }
+
+    /**
+     * Sends one or multiple image URLs via WhatsApp.
+     *
+     * @param string|array $url The URL(s) of the image(s) to send.
+     * @param string $to The recipient's phone number.
+     * @param string|null $message The message to send along with the image(s).
+     * @return void
+     */
+    private function send_image_url(string|array $url, string $to, ?string $message = ''): void
+    {
+        if (is_array($url) && count($url) > 1) {
+            $last = $url[array_key_last($url)];
+            foreach ($url as $image) {
+                if ($image === $last) {
+                    $this->send_request('send_image_url', $message, $to, ['url' => $image]);
+                    break;
+                }
+                $this->send_request('send_image_url', '', $to, ['url' => $image]);
             }
             return;
         }
 
-        $this->send_request('send_message', $message, $to);
-    }
+        $url = is_array($url) ? $url[0] : $url;
 
-    /**
-     * Sends an image URL via WhatsApp.
-     *
-     * @param string|null $message The message to send along with the image.
-     * @param string $url The URL of the image to send.
-     * @param string $to The recipient's phone number.
-     * @return void
-     */
-    private function send_image_url(?string $message = '', string $url, string $to): void
-    {
         $this->send_request('send_image_url', $message, $to, ['url' => $url]);
     }
 

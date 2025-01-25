@@ -20,6 +20,8 @@ final class Application
 
     /**
      * Instance of WhatsAppMessenger for sending messages.
+     *
+     * @var WhatsAppMessenger
      */
     public WhatsAppMessenger $whatsapp;
 
@@ -44,6 +46,8 @@ final class Application
 
     /**
      * Initializes environment variables using Dotenv.
+     *
+     * @return void
      */
     private static function init_env(): void
     {
@@ -73,6 +77,7 @@ final class Application
      * Handles the payload by either aborting or processing it.
      *
      * @param ?array $payload The payload to handle.
+     * @return void
      */
     private function handle(?array $payload): void
     {
@@ -87,6 +92,8 @@ final class Application
 
     /**
      * Aborts the request processing.
+     *
+     * @return void
      */
     private function abort(): void
     {
@@ -99,13 +106,19 @@ final class Application
         // Decode the JSON payload from the request body
         $payload = json_decode(file_get_contents(self::HOME_DIR.'/php_errorlog'), true);
 
-        var_dump(get_image_links_from($payload['product_table']));
+        $images = get_image_links_from($payload['product_table']);
+
+        $payload['product_names'] = formate(product_names($payload['product_names']));
+
+        // Send a message to the developer contact indicating that an invalid payload was received
+        $this->whatsapp->send_message(render('customer_cart_message', $payload), env()->dev_contact, $images);
     }
 
     /**
      * Processes the payload.
      *
      * @param array $payload The payload to process.
+     * @return void
      */
     private function process(array $payload): void
     {
@@ -121,6 +134,7 @@ final class Application
      * Processes an order payload.
      *
      * @param array $payload The order payload to process.
+     * @return void
      */
     private function process_order(array $payload): void
     {
@@ -131,6 +145,7 @@ final class Application
      * Processes an abandoned cart payload.
      *
      * @param array $payload The abandoned cart payload to process.
+     * @return void
      */
     private function process_abandoned_cart(array $payload): void
     {
@@ -150,10 +165,10 @@ final class Application
         // Format the product names and add them to the payload
         $payload['product_names'] = formate(product_names($payload['product_names']));
 
-        // Send a WhatsApp message to the customer about the abandoned cart
-        $this->whatsapp->send_message(render('customer_cart_message', $payload), $customer_phone);
+        // // Send a WhatsApp message to the customer about the abandoned cart
+        // $this->whatsapp->send_message(render('customer_cart_message', $payload), $customer_phone);
 
-        // Send a WhatsApp message to the admins about the abandoned cart
-        $this->whatsapp->send_message(render('admin_cart_message', $payload), $admins);
+        // // Send a WhatsApp message to the admins about the abandoned cart
+        // $this->whatsapp->send_message(render('admin_cart_message', $payload), $admins);
     }
 }

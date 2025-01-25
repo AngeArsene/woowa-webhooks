@@ -57,7 +57,7 @@ final class Request
 
         try {
             // Send the HTTP request
-            $this->http_client->send($request);
+            $this->http_client->sendAsync($request)->wait();
             return true;
 
         } catch (\Throwable $error) {

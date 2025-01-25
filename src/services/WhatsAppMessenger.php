@@ -40,12 +40,12 @@ final class WhatsAppMessenger implements MessageHandler
         if ($url === null) {
             if (is_array($to)) {
                 foreach ($to as $recipient) {
-                    $this->send_request('send_message', $message, $recipient);
+                    $this->send_request('async_send_message', $message, $recipient);
                 }
                 return;
             }
 
-            $this->send_request('send_message', $message, $to);
+            $this->send_request('async_send_message', $message, $to);
         } else {
             if (is_array($to)) {
                 foreach ($to as $recipient) {
@@ -72,17 +72,17 @@ final class WhatsAppMessenger implements MessageHandler
             $last = $url[array_key_last($url)];
             foreach ($url as $image) {
                 if ($image === $last) {
-                    $this->send_request('send_image_url', $message, $to, ['url' => $image]);
+                    $this->send_request('async_send_image_url', $message, $to, ['url' => $image]);
                     break;
                 }
-                $this->send_request('send_image_url', '', $to, ['url' => $image]);
+                $this->send_request('async_send_image_url', '', $to, ['url' => $image]);
             }
             return;
         }
 
         $url = is_array($url) ? $url[0] : $url;
 
-        $this->send_request('send_image_url', $message, $to, ['url' => $url]);
+        $this->send_request('async_send_image_url', $message, $to, ['url' => $url]);
     }
 
     /**

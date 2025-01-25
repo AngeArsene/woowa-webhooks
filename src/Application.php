@@ -154,7 +154,7 @@ final class Application
         // Ensure the phone number has the country code prefix '+237'
         $customer_phone = strpos($customer_phone, '+237') === false ? '+237'.$customer_phone : $customer_phone;
         
-        // // Retrieve the list of admin phone numbers
+        // Retrieve the list of admin phone numbers
         $admins = explode(",", env()->admins);
 
         // Add the customer's phone number to the payload

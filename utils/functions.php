@@ -187,3 +187,17 @@ function get_image_links_from(string $html): array
 
     return $imageLinks;
 }
+
+/**
+ * Gets a future date and time in Jakarta timezone.
+ *
+ * @param string $time_offset The time offset to add (e.g., '+1 day', '+2 hours').
+ * @return string The future date and time in 'Y-m-d H:i' format.
+ */
+function get_future_date_in_jakarta(string $time_offset): string
+{
+    // Set the default timezone to Asia/Jakarta
+    date_default_timezone_set('Asia/Jakarta');
+
+    return date("Y-m-d H:i", strtotime($time_offset));
+}

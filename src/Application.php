@@ -106,6 +106,7 @@ final class Application
         // Retrieve image links from the product table in the payload
         $images = get_image_links_from($payload['product_table']);
 
+        // Format the product names in the payload using the formate function
         $payload['product_names'] = formate(product_names($payload['product_names']));
 
         // Send a WhatsApp message to the developer about the aborted request

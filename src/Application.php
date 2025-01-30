@@ -164,12 +164,19 @@ final class Application
         // Format the product names and add them to the payload
         $payload['product_names'] = formate(product_names($payload['product_names']));
 
-        // Retrieve image links from the product table in the payload
-        $images = get_image_links_from($payload['product_table']);
+        // Retrieve the intervals for sending scheduled messages and convert them to Jakarta time
+        $intervals = array_map(
+            fn ($interval) => jakarta_date($interval), explode(", ", env()->ca_intervals)
+        );
+
+        $user_message = render('customer_cart_message', $payload);
 
         // Send a WhatsApp message to the customer about the abandoned cart
-        $this->whatsapp->send_message(render('customer_cart_message', $payload), $customer_phone, $images);
+        $this->whatsapp->send_message($user_message, $customer_phone);
 
+        // Send a scheduled message to the customer about the abandoned cart
+        $this->whatsapp->send_schaduler($user_message, $customer_phone, $intervals);
+        
         // Send a WhatsApp message to the admins about the abandoned cart
         $this->whatsapp->send_message(render('admin_cart_message', $payload), $admins);
     }

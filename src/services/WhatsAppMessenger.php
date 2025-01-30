@@ -85,6 +85,19 @@ final class WhatsAppMessenger implements MessageHandler
         $this->send_request('async_send_image_url', $message, $to, ['url' => $url]);
     }
 
+    public function send_schaduler(string $message, array|string $to, string|array $sch_date): void
+    {
+        // Implement sending a scheduled message using WhatsApp
+        if (gettype($sch_date) === 'string') {
+            $this->send_request('scheduler', $message, $to, ["api_type" => "text", 'sch_date' => $sch_date]);
+        } else if (gettype($sch_date) === 'array') {
+            foreach ($sch_date as $date) {
+                $this->send_request('scheduler', $message, $to, ["api_type" => "text", 'sch_date' => $date]);
+            }
+        }
+    }
+
+
     /**
      * Sends a request to the given URL with the provided message and recipient.
      *

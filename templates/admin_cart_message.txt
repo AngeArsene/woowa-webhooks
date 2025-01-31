@@ -2,7 +2,7 @@
 
 - *Nom du client :* [first_name] [last_name]
 - *Email :* [email]
-- *Téléphone :* [phone]
+- *Téléphone :* [phone_number]
 - *Produit(s):* 
 [product_names]
 - *Total du panier en XAF :* [cart_total]

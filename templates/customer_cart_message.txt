@@ -4,10 +4,11 @@ Vous avez laissé des articles dans votre panier !
 ----------------------------------
 You left some items in your cart !
 
-*Résumé du panier : / Cart Summary :*
+*Résumé du panier :*
+*Cart Summary :*
 - *Nom / Name :* [first_name] [last_name]
 - *Email:* [email]
-- *tel:* [phone]
+- *tel:* [phone_number]
 - *Article(s) / Item(s):*
 [product_names]
 - *Total:* [cart_total] FCFA

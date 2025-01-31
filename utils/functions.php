@@ -80,7 +80,7 @@ function replace_placeholders(string $template, ?array $variables = [])
  * @param string $cart_url The URL of the cart page
  * @return string|null The extracted phone number, or null if an error occurs
  */
-function get_phone_number(string $cart_url) : ?string
+function cart_phone_number(string $cart_url) : ?string
 {
     // Step 1: Create a Guzzle client
     $client = new Client();
@@ -115,6 +115,27 @@ function get_phone_number(string $cart_url) : ?string
         return $formData['billing_phone'];
 
     } catch (\Throwable $th) { return null; }
+}
+
+/**
+ * Retrieves the phone number from the payload or cart URL.
+ *
+ * This function extracts the phone number from the payload or cart URL,
+ * ensures it has the country code prefix '+237', and removes any spaces.
+ *
+ * @param array $payload The payload containing the phone number or cart URL.
+ * @return string The formatted phone number.
+ */
+function get_phone_number(array $payload): string
+{
+    // Retrieve the phone number from the payload or cart URL
+    $phone_number =  $payload['phone_number'] ?? ($payload['phone'] ?? cart_phone_number($payload['checkout_url']));
+
+    // Ensure the phone number has the country code prefix '+237'
+    $phone_number = strpos($phone_number, '+237') === false ? '+237'.$phone_number : $phone_number;
+
+    // Remove any spaces from the phone number
+    return str_replace(' ', '', $phone_number);
 }
 
 /**
@@ -158,6 +179,14 @@ function formate(array $product_names): string
     return $products;
 }
 
+/**
+ * Retrieves image links from the provided HTML content.
+ *
+ * This function parses the HTML content to extract the 'src' attributes of all image elements.
+ *
+ * @param string $html The HTML content to parse.
+ * @return array An array of image URLs.
+ */
 function get_image_links_from(string $html): array
 {
     // Create a new DOMDocument instance

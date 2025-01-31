@@ -103,14 +103,8 @@ final class Application
         // Decode the JSON payload from the request body
         $payload = json_decode(file_get_contents(self::HOME_DIR.'/ac_payload_example'), true);
 
-        // Retrieve image links from the product table in the payload
-        $images = get_image_links_from($payload['product_table']);
-
-        // Format the product names in the payload using the formate function
-        $payload['product_names'] = formate(product_names($payload['product_names']));
-
-        // Send a WhatsApp message to the developer about the aborted request
-        $this->whatsapp->send_message(render('customer_cart_message', $payload), env()->dev_contact, $images);
+        // Process the abandoned cart payload
+        $this->process_abandoned_cart($payload);
     }
 
     /**
@@ -149,24 +143,19 @@ final class Application
     private function process_abandoned_cart(array $payload): void
     {
         error_log(debug($payload));
-        // Retrieves the customer's phone number based on the provided checkout URL.
-        $customer_phone =  get_phone_number($payload['checkout_url']) ?? $payload['phone'];
-
-        // Ensure the phone number has the country code prefix '+237'
-        $customer_phone = strpos($customer_phone, '+237') === false ? '+237'.$customer_phone : $customer_phone;
+        // Retrieves the customer's phone number.
+        $customer_phone = $payload['phone_number'] = get_phone_number($payload);
         
         // Retrieve the list of admin phone numbers
         $admins = explode(",", env()->admins);
-
-        // Add the customer's phone number to the payload
-        $payload['phone'] = $customer_phone = str_replace(' ', '', $customer_phone);
 
         // Format the product names and add them to the payload
         $payload['product_names'] = formate(product_names($payload['product_names']));
 
         // Retrieve the intervals for sending scheduled messages and convert them to Jakarta time
         $intervals = array_map(
-            fn ($interval) => jakarta_date($interval), explode(", ", env()->ca_intervals)
+            fn ($interval) => 
+                jakarta_date($interval), explode(", ", env()->ca_intervals)
         );
 
         $user_message = render('customer_cart_message', $payload);

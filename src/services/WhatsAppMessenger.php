@@ -85,6 +85,14 @@ final class WhatsAppMessenger implements MessageHandler
         $this->send_request('async_send_image_url', $message, $to, ['url' => $url]);
     }
 
+    /**
+     * Sends a scheduled message via WhatsApp.
+     *
+     * @param string $message The message to send.
+     * @param array|string $to The recipient's phone number(s).
+     * @param string|array $sch_date The scheduled date(s) for sending the message.
+     * @return void
+     */
     public function send_schaduler(string $message, array|string $to, string|array $sch_date): void
     {
         // Implement sending a scheduled message using WhatsApp
@@ -96,7 +104,6 @@ final class WhatsAppMessenger implements MessageHandler
             }
         }
     }
-
 
     /**
      * Sends a request to the given URL with the provided message and recipient.

@@ -34,14 +34,11 @@ final class Application
         // Initialize environment variables
         self::init_env();
         
-        // Retrieve the payload from the request
-        $payload = $this->get_payload();
-        
         // Initialize WhatsAppMessenger
         $this->whatsapp = new WhatsAppMessenger();
         
         // Handle the payload
-        $this->handle($payload);
+        $this->handle($this->get_payload());
     }
 
     /**

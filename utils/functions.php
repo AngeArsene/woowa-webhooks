@@ -225,8 +225,9 @@ function get_image_links_from(string $html): array
  */
 function jakarta_date(string $time_offset): string
 {
-    // Set the default timezone to Asia/Jakarta
-    date_default_timezone_set('Asia/Jakarta');
+    // Create a new DateTime object with the specified time offset and Jakarta timezone
+    $date = new DateTime($time_offset, new DateTimeZone("Asia/Jakarta"));
 
-    return date("Y-m-d H:i", strtotime($time_offset));
+    // Display the updated date and time
+    return $date->format('Y-m-d H:i');
 }

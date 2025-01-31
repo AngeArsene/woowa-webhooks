@@ -145,9 +145,6 @@ final class Application
         error_log(debug($payload));
         // Retrieves the customer's phone number.
         $customer_phone = $payload['phone_number'] = get_phone_number($payload);
-        
-        // Retrieve the list of admin phone numbers
-        $admins = explode(",", env()->admins);
 
         // Format the product names and add them to the payload
         $payload['product_names'] = formate(product_names($payload['product_names']));
@@ -167,6 +164,6 @@ final class Application
         $this->whatsapp->send_schaduler($user_message, $customer_phone, $intervals);
         
         // Send a WhatsApp message to the admins about the abandoned cart
-        $this->whatsapp->send_message(render('admin_cart_message', $payload), $admins);
+        $this->whatsapp->send_message(render('admin_cart_message', $payload), explode(",", env()->admins));
     }
 }

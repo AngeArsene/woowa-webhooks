@@ -27,6 +27,7 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
     base_url = "https://notifapi.com"
     dev_contact = "developer_contact_number"
     admins = "admin1_phone,admin2_phone"
+    ca_intervals = "+1 day, +3 days, +7 days"
     ```
 
 ## Usage
@@ -86,7 +87,9 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 - **Description**: Handles sending messages via WhatsApp.
 - **Methods**:
   - `__construct()`: Initializes the HTTP client.
-  - `send_message()`: Sends a message via WhatsApp.
+  - `send_message()`: Sends a message or an image URL via WhatsApp.
+  - `send_image_url()`: Sends one or multiple image URLs via WhatsApp.
+  - `send_schaduler()`: Sends a scheduled message via WhatsApp.
   - `send_request()`: Sends a request to the given URL with the provided message and recipient.
   - `base_params()`: Generates the base parameters for the request.
 
@@ -94,7 +97,7 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 
 - **Description**: Interface for handling messages.
 - **Methods**:
-  - `send_message()`: Sends a message.
+  - `send_message()`: Sends a message or an image URL.
 
 ### MessagingException Class
 
@@ -115,7 +118,12 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 - **debug()**: Debugs a payload by dumping its contents.
 - **render()**: Renders a template with the given variables.
 - **replace_placeholders()**: Replaces placeholders in a template with the given variables.
-- **get_phone_number()**: Retrieves the phone number from the provided cart URL.
+- **cart_phone_number()**: Retrieves the phone number from the provided cart URL.
+- **get_phone_number()**: Retrieves the phone number from the payload or cart URL.
+- **product_names()**: Splits a string of product names into an array.
+- **formate()**: Formats an array of product names into a string with each product name followed by a line of dashes.
+- **get_image_links_from()**: Retrieves image links from the provided HTML content.
+- **jakarta_date()**: Gets a future date and time in Jakarta timezone.
 
 ## License
 

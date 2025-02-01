@@ -146,7 +146,7 @@ final class Application
         // Format the product names and add them to the payload
         $payload['product_names'] = formate(product_names($payload['product_names']));
 
-        // Render the customer and admin messages
+        // Render the customer messages
         $user_message = render('customer_cart_message', $payload);
 
         // Send a WhatsApp message to the customer about the abandoned cart

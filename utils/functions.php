@@ -231,3 +231,16 @@ function jakarta_date(string $time_offset): string
     // Display the updated date and time
     return $date->format('Y-m-d H:i');
 }
+
+/**
+ * Retrieves the intervals for sending scheduled messages and converts them to Jakarta time.
+ *
+ * @return array An array of formatted date and time strings in Jakarta timezone.
+ */
+function intervals(): array
+{
+    return array_map(
+        fn ($interval) => 
+        jakarta_date($interval), explode(", ", env()->ca_intervals)
+    );
+}

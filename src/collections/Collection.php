@@ -12,11 +12,6 @@ namespace WoowaWebhooks\Collections;
 abstract class Collection
 {
     /**
-     * @var array $data The data stored in the collection.
-     */
-    protected array $data;
-
-    /**
      * Filter the collection data.
      * 
      * @return array The filtered data.

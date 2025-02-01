@@ -9,7 +9,9 @@
     "license": "MIT",
     "autoload": {
         "files": [
-            "utils/functions.php"
+            "utils/env_debug.php",
+            "utils/templates.php",
+            "utils/utilities.php"
         ],
         "psr-4": {
             "WoowaWebhooks\\": "src/"

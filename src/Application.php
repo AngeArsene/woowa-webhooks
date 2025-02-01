@@ -33,12 +33,14 @@ final class Application
     {
         // Initialize environment variables
         self::init_env();
+
+        error_log(debug(intervals()));
         
-        // Initialize WhatsAppMessenger
-        $this->whatsapp = new WhatsAppMessenger();
+        // // Initialize WhatsAppMessenger
+        // $this->whatsapp = new WhatsAppMessenger();
         
-        // Handle the payload
-        $this->handle($this->get_payload());
+        // // Handle the payload
+        // $this->handle($this->get_payload());
     }
 
     /**

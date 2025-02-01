@@ -63,7 +63,9 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
   - `Services/Exceptions/MessagingException.php`: Custom exception for handling messaging errors.
   - `Request.php`: Handles sending HTTP requests using GuzzleHttp.
 - `utils/`: Contains utility functions.
-  - `functions.php`: Utility functions used in the application.
+  - `templates.php`: Functions for rendering templates.
+  - `env_debug.php`: Functions for environment variable handling and debugging.
+  - `utilities.php`: Additional utility functions.
 - `.env`: Environment variables file.
 - `composer.json`: Composer configuration file.
 
@@ -89,7 +91,7 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
   - `__construct()`: Initializes the HTTP client.
   - `send_message()`: Sends a message or an image URL via WhatsApp.
   - `send_image_url()`: Sends one or multiple image URLs via WhatsApp.
-  - `send_schaduler()`: Sends a scheduled message via WhatsApp.
+  - `send_scheduler()`: Sends a scheduled message via WhatsApp.
   - `send_request()`: Sends a request to the given URL with the provided message and recipient.
   - `base_params()`: Generates the base parameters for the request.
 
@@ -121,9 +123,10 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 - **cart_phone_number()**: Retrieves the phone number from the provided cart URL.
 - **get_phone_number()**: Retrieves the phone number from the payload or cart URL.
 - **product_names()**: Splits a string of product names into an array.
-- **formate()**: Formats an array of product names into a string with each product name followed by a line of dashes.
+- **format()**: Formats an array of product names into a string with each product name followed by a line of dashes.
 - **get_image_links_from()**: Retrieves image links from the provided HTML content.
 - **jakarta_date()**: Gets a future date and time in Jakarta timezone.
+- **intervals()**: Retrieves the intervals for sending scheduled messages.
 
 ## License
 

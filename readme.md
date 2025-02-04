@@ -58,6 +58,9 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 - `index.php`: The entry point of the application.
 - `src/`: Contains the main application classes.
   - `Application.php`: The main application class for handling webhooks.
+  - `Collections/`: Contains collection classes.
+    - `Collection.php`: An abstract base class for collections.
+    - `NewOrderCollection.php`: A collection class for handling new orders.
   - `Services/WhatsAppMessenger.php`: Handles sending messages via WhatsApp.
   - `Services/MessageHandler.php`: Interface for handling messages.
   - `Services/Exceptions/MessagingException.php`: Custom exception for handling messaging errors.
@@ -66,6 +69,9 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
   - `templates.php`: Functions for rendering templates.
   - `env_debug.php`: Functions for environment variable handling and debugging.
   - `utilities.php`: Additional utility functions.
+- `templates/`: Contains message templates.
+  - `customer_order_message.txt`: Template for customer order messages.
+  - `admin_order_message.txt`: Template for admin order messages.
 - `.env`: Environment variables file.
 - `composer.json`: Composer configuration file.
 
@@ -83,6 +89,21 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
   - `process()`: Processes the payload.
   - `process_order()`: Processes an order payload.
   - `process_abandoned_cart()`: Processes an abandoned cart payload.
+
+### Collection Class
+
+- **Description**: An abstract base class for collections.
+- **Methods**:
+  - `bootstrap()`: Initializes the collection with the given payload.
+  - `filter()`: Abstract method to filter the collection data.
+
+### NewOrderCollection Class
+
+- **Description**: A collection class for handling new orders.
+- **Methods**:
+  - `bootstrap()`: Initializes the collection with the given payload.
+  - `filter()`: Filters the collection data.
+  - `product_names()`: Gets the product names from the given products.
 
 ### WhatsAppMessenger Class
 

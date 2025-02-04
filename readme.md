@@ -154,5 +154,4 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Authors
-
-- **Ange Arsene** - [nkenmandenga@gmail.com](mailto:nkenmandenga@gmail.com)
+- **Ange Arsene** - [WhatsApp](https://wa.me/237699512438) - [Email](mailto:angearsene@example.com)

@@ -118,20 +118,20 @@ final class Application
 
         // Switch based on the status of the payload
         switch ($status) {
-            case 'processing':
-            // If the status is 'processing', process the order
-            $this->process_order($payload);
-            break;
-            
             case 'abandoned':
-            // If the status is 'abandoned', process the abandoned cart
-            $this->process_abandoned_cart($payload);
-            break;
+                // If the status is 'abandoned', process the abandoned cart
+                $this->process_abandoned_cart($payload);
+                break;
+            
+            case 'processing':
+                // If the status is 'processing', process the order
+                $this->process_order($payload);
+                break;
             
             default:
-            // For any other status, abort the processing
-            $this->abort();
-            break;
+                // For any other status, abort the processing
+                $this->abort();
+                break;
         }
     }
 

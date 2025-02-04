@@ -113,21 +113,25 @@ final class Application
      */
     private function process(array $payload): void
     {
-        // Determine the type of payload and process accordingly
+        // Determine the status from the payload, using 'status' if available, otherwise fallback to 'order_status'.
         $status = $payload['status'] ?? $payload['order_status'];
 
+        // Switch based on the status of the payload
         switch ($status) {
             case 'processing':
-                $this->process_order($payload);
-                break;
+            // If the status is 'processing', process the order
+            $this->process_order($payload);
+            break;
             
             case 'abandoned':
-                $this->process_abandoned_cart($payload);
-                break;
+            // If the status is 'abandoned', process the abandoned cart
+            $this->process_abandoned_cart($payload);
+            break;
             
             default:
-                $this->abort();
-                break;
+            // For any other status, abort the processing
+            $this->abort();
+            break;
         }
     }
 

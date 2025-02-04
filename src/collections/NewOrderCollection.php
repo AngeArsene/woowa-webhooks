@@ -5,28 +5,42 @@ declare(strict_types=1);
 namespace WoowaWebhooks\Collections;
 
 /**
- * Class OrderCollection
+ * Class NewOrderCollection
  * 
- * A collection class for handling orders.
+ * A collection class for handling new orders.
  */
 final class NewOrderCollection extends Collection
 {
+    /**
+     * @var array $billing The billing information.
+     */
     private static array $billing;
 
+    /**
+     * Initialize the collection with the given payload.
+     * 
+     * @param array $payload The data to initialize the collection.
+     */
     protected static function bootstrap(array $payload): void
     {
+        // Call the parent bootstrap method
         parent::bootstrap($payload);
+        // Set the billing information
         self::$billing = $payload['billing'];
     }
+
     /**
      * Filter the collection data.
      * 
+     * @param array $payload The data to filter.
      * @return array The filtered data.
      */
     public static function filter(array $payload): array
     {
+        // Initialize the collection with the given payload
         self::bootstrap($payload);
 
+        // Return the filtered data
         return [
             'id'              => self::$data['id'],
             'city'            => self::$billing['city'],
@@ -43,13 +57,21 @@ final class NewOrderCollection extends Collection
         ];
     }
 
+    /**
+     * Get the product names from the given products.
+     * 
+     * @param array $products The products to get the names from.
+     * @return string The formatted product names.
+     */
     private static function product_names(array $products): string
     {
+        // Map the product names with their price and quantity
         $product_names = array_map(
             fn ($item) => 
                 $item['name']." - ".$item['price']."CFA x ".$item['quantity'], $products
         );
 
+        // Return the formatted product names
         return formate($product_names);
     }
 }

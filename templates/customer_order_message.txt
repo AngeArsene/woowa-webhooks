@@ -1,0 +1,20 @@
+🌟 *Merci de votre commande !*  
+------------------------------
+🌟 *Thank you for your order !*
+
+- *ID :* [id]  
+- *Nom / Name:* [first_name] [last_name]  
+- *Email:* [email]  
+- *Tel:* [phone_number]  
+- *Ville / Town:* [city]  
+- *Quartier / Quarter:* [neighborhood]  
+
+- *Article(s) / Item(s):*  
+
+[product_names]  
+
+- *Total livraison / Shipping Total:* [shipping_total]  
+- *Livraison / Shipping:* [shipping_method]  
+- *Paiement / Payment:* [payment_method]  
+
+💰 *Total:* [total]  

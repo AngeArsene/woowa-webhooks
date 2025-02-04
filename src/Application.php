@@ -7,6 +7,7 @@ namespace WoowaWebhooks;
 use Exception;
 use Dotenv\Dotenv;
 use WoowaWebhooks\Services\WhatsAppMessenger;
+use WoowaWebhooks\Collections\NewOrderCollection;
 
 /**
  * The main application class for handling webhooks.
@@ -98,10 +99,10 @@ final class Application
         header('Content-Type: application/json');
 
         // Decode the JSON payload from the request body
-        $payload = json_decode(file_get_contents(self::HOME_DIR.'/ac_payload_example'), true);
+        $payload = json_decode(file_get_contents(self::HOME_DIR.'/order_payload_example'), true);
 
         // Process the abandoned cart payload
-        $this->process_abandoned_cart($payload);
+        $this->process_order($payload);
     }
 
     /**
@@ -113,10 +114,20 @@ final class Application
     private function process(array $payload): void
     {
         // Determine the type of payload and process accordingly
-        if (empty($_post)) {
-            $this->process_order($payload);
-        } else {
-            $this->process_abandoned_cart($payload);
+        $status = $payload['status'] ?? $payload['order_status'];
+
+        switch ($status) {
+            case 'processing':
+                $this->process_order($payload);
+                break;
+            
+            case 'abandoned':
+                $this->process_abandoned_cart($payload);
+                break;
+            
+            default:
+                $this->abort();
+                break;
         }
     }
 
@@ -128,7 +139,18 @@ final class Application
      */
     private function process_order(array $payload): void
     {
-        // Implement order processing logic here
+        error_log(debug($payload));
+        // Filter the payload to only include required fields
+        $payload = NewOrderCollection::filter($payload);
+
+        // Retrieve the customer's phone number.
+        $customer_phone = $payload['phone_number'] = get_phone_number($payload);
+
+        // Send a WhatsApp message to the customer about the new order
+        $this->whatsapp->send_message(render('customer_order_message', $payload), $customer_phone);
+
+        // Send a WhatsApp message to the admins about the new order
+        $this->whatsapp->send_message(render('admin_order_message', $payload), explode(",", env()->admins));
     }
 
     /**

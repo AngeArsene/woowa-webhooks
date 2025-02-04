@@ -11,10 +11,17 @@ namespace WoowaWebhooks\Collections;
  */
 abstract class Collection
 {
+    protected static array $data;
+
+    protected static function bootstrap(array $payload): void
+    {
+        self::$data = $payload;
+    }
+        
     /**
      * Filter the collection data.
      * 
      * @return array The filtered data.
      */
-    abstract public function filter(): array;
+    abstract public static function filter(array $data): array;
 }

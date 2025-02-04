@@ -1,214 +1,268 @@
 {
-  "timestamp": "01-Feb-2025 12:27:08 UTC",
-  "order": {
-    "id": 35840,
-    "parent_id": 0,
-    "status": "processing",
-    "currency": "XOF",
-    "version": "9.6.0",
-    "prices_include_tax": false,
-    "date_created": "2025-02-01T12:26:54",
-    "date_modified": "2025-02-01T12:26:55",
-    "discount_total": "0",
-    "discount_tax": "0",
-    "shipping_total": "5000",
-    "shipping_tax": "0",
-    "cart_tax": "0",
-    "total": "5199",
-    "total_tax": "0",
-    "customer_id": 2,
-    "order_key": "wc_order_M2CtnlVCIkUov",
-    "billing": {
-      "first_name": "Ange",
-      "last_name": "Arsene",
-      "company": "",
-      "address_1": "Japoma",
-      "address_2": "",
-      "city": "Douala",
-      "state": "",
-      "postcode": "1234",
-      "country": "CM",
-      "email": "nkenmandenga@gmail.com",
-      "phone": "699512438"
+  "id": 35843,
+  "parent_id": 0,
+  "status": "processing",
+  "currency": "XOF",
+  "version": "9.6.0",
+  "prices_include_tax": false,
+  "date_created": "2025-02-03T13:06:35",
+  "date_modified": "2025-02-03T13:06:37",
+  "discount_total": "0",
+  "discount_tax": "0",
+  "shipping_total": "23000",
+  "shipping_tax": "0",
+  "cart_tax": "0",
+  "total": "25083",
+  "total_tax": "0",
+  "customer_id": 0,
+  "order_key": "wc_order_5bQVNZlDCKE8q",
+  "billing": {
+    "first_name": "Franky",
+    "last_name": "Kuidou",
+    "company": "",
+    "address_1": "Pk13",
+    "address_2": "",
+    "city": "Douala",
+    "state": "",
+    "postcode": "7460",
+    "country": "CM",
+    "email": "kuidouchancel@gmail.com",
+    "phone": "+237675962178"
+  },
+  "shipping": {
+    "first_name": "Franky",
+    "last_name": "Kuidou",
+    "company": "",
+    "address_1": "Pk13",
+    "address_2": "",
+    "city": "Douala",
+    "state": "",
+    "postcode": "7460",
+    "country": "CM",
+    "phone": ""
+  },
+  "payment_method": "cod",
+  "payment_method_title": "Cash on delivery",
+  "transaction_id": "",
+  "customer_ip_address": "154.72.171.36",
+  "customer_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
+  "created_via": "checkout",
+  "customer_note": "",
+  "date_completed": null,
+  "date_paid": null,
+  "cart_hash": "b853d88da19132a2e228bd281fd27953",
+  "number": "35843",
+  "meta_data": [
+    {
+      "id": 1703,
+      "key": "_mc4wp_optin",
+      "value": ""
     },
-    "shipping": {
-      "first_name": "Ange",
-      "last_name": "Arsene",
-      "company": "",
-      "address_1": "Japoma",
-      "address_2": "",
-      "city": "Douala",
-      "state": "",
-      "postcode": "1234",
-      "country": "CM",
-      "phone": ""
+    {
+      "id": 1714,
+      "key": "_wc_order_attribution_device_type",
+      "value": "Desktop"
     },
-    "payment_method": "cod",
-    "payment_method_title": "Cash on delivery",
-    "transaction_id": "",
-    "customer_ip_address": "154.72.170.152",
-    "customer_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
-    "created_via": "checkout",
-    "customer_note": "",
-    "date_completed": null,
-    "date_paid": null,
-    "cart_hash": "19caa593a769639cef35bb23152e49dc",
-    "number": "35840",
-    "meta_data": [
-      {
-        "id": 1655,
-        "key": "_mc4wp_optin",
-        "value": ""
+    {
+      "id": 1712,
+      "key": "_wc_order_attribution_session_count",
+      "value": "4"
+    },
+    {
+      "id": 1709,
+      "key": "_wc_order_attribution_session_entry",
+      "value": "http://test.allready.cm/en/"
+    },
+    {
+      "id": 1711,
+      "key": "_wc_order_attribution_session_pages",
+      "value": "3"
+    },
+    {
+      "id": 1710,
+      "key": "_wc_order_attribution_session_start_time",
+      "value": "2025-02-01 12:06:04"
+    },
+    {
+      "id": 1707,
+      "key": "_wc_order_attribution_source_type",
+      "value": "typein"
+    },
+    {
+      "id": 1713,
+      "key": "_wc_order_attribution_user_agent",
+      "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
+    },
+    {
+      "id": 1708,
+      "key": "_wc_order_attribution_utm_source",
+      "value": "(direct)"
+    },
+    {
+      "id": 1699,
+      "key": "is_vat_exempt",
+      "value": "no"
+    },
+    {
+      "id": 1702,
+      "key": "mailchimp_woocommerce_landing_site",
+      "value": "https://test.allready.cm/en/en/checkout/order-received/35842/?key=wc_order_8sGq9aL7EUUzv"
+    },
+    {
+      "id": 1705,
+      "key": "omnisend_cartID",
+      "value": "wc_cart_0_1738587904_7370"
+    },
+    {
+      "id": 1706,
+      "key": "omnisend_last_sync",
+      "value": "2025-02-03T13:06:36+00:00"
+    },
+    {
+      "id": 1704,
+      "key": "trp_language",
+      "value": "en_US"
+    }
+  ],
+  "line_items": [
+    {
+      "id": 290,
+      "name": "Augue adipiscing euismod",
+      "product_id": 372,
+      "variation_id": 0,
+      "quantity": 1,
+      "tax_class": "",
+      "subtotal": "199",
+      "subtotal_tax": "0",
+      "total": "199",
+      "total_tax": "0",
+      "taxes": [],
+      "meta_data": [],
+      "sku": "MNK-001",
+      "price": 199,
+      "image": {
+        "id": "5700",
+        "src": "https://test.allready.cm/wp-content/uploads/2021/10/black-friday-product-5.jpg"
       },
-      {
-        "id": 1666,
-        "key": "_wc_order_attribution_device_type",
-        "value": "Desktop"
+      "parent_name": null
+    },
+    {
+      "id": 291,
+      "name": "Classic wooden chair",
+      "product_id": 270,
+      "variation_id": 0,
+      "quantity": 2,
+      "tax_class": "",
+      "subtotal": "598",
+      "subtotal_tax": "0",
+      "total": "598",
+      "total_tax": "0",
+      "taxes": [],
+      "meta_data": [],
+      "sku": "",
+      "price": 299,
+      "image": {
+        "id": "5705",
+        "src": "https://test.allready.cm/wp-content/uploads/2021/10/black-friday-product-10.jpg"
       },
-      {
-        "id": 1664,
-        "key": "_wc_order_attribution_session_count",
-        "value": "1"
+      "parent_name": null
+    },
+    {
+      "id": 292,
+      "name": "Decoration wooden present",
+      "product_id": 334,
+      "variation_id": 0,
+      "quantity": 1,
+      "tax_class": "",
+      "subtotal": "89",
+      "subtotal_tax": "0",
+      "total": "89",
+      "total_tax": "0",
+      "taxes": [],
+      "meta_data": [],
+      "sku": "",
+      "price": 89,
+      "image": {
+        "id": "5707",
+        "src": "https://test.allready.cm/wp-content/uploads/2021/10/black-friday-product-12.jpg"
       },
-      {
-        "id": 1661,
-        "key": "_wc_order_attribution_session_entry",
-        "value": "http://test.allready.cm/en/"
+      "parent_name": null
+    },
+    {
+      "id": 293,
+      "name": "Eames lounge chair",
+      "product_id": 232,
+      "variation_id": 0,
+      "quantity": 3,
+      "tax_class": "",
+      "subtotal": "1197",
+      "subtotal_tax": "0",
+      "total": "1197",
+      "total_tax": "0",
+      "taxes": [],
+      "meta_data": [],
+      "sku": "",
+      "price": 399,
+      "image": {
+        "id": "5706",
+        "src": "https://test.allready.cm/wp-content/uploads/2021/10/black-friday-product-11.jpg"
       },
-      {
-        "id": 1663,
-        "key": "_wc_order_attribution_session_pages",
-        "value": "8"
-      },
-      {
-        "id": 1662,
-        "key": "_wc_order_attribution_session_start_time",
-        "value": "2025-02-01 12:06:04"
-      },
-      {
-        "id": 1659,
-        "key": "_wc_order_attribution_source_type",
-        "value": "typein"
-      },
-      {
-        "id": 1665,
-        "key": "_wc_order_attribution_user_agent",
-        "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
-      },
-      {
-        "id": 1660,
-        "key": "_wc_order_attribution_utm_source",
-        "value": "(direct)"
-      },
-      {
-        "id": 1651,
-        "key": "is_vat_exempt",
-        "value": "no"
-      },
-      {
-        "id": 1654,
-        "key": "mailchimp_woocommerce_landing_site",
-        "value": "https://test.allready.cm/en/en/?add-to-cart=372"
-      },
-      {
-        "id": 1657,
-        "key": "omnisend_cartID",
-        "value": "wc_cart_2_1738412759_1525"
-      },
-      {
-        "id": 1658,
-        "key": "omnisend_last_sync",
-        "value": "2025-02-01T12:26:54+00:00"
-      },
-      {
-        "id": 1656,
-        "key": "trp_language",
-        "value": "en_US"
-      }
-    ],
-    "line_items": [
-      {
-        "id": 280,
-        "name": "Augue adipiscing euismod",
-        "product_id": 372,
-        "variation_id": 0,
-        "quantity": 1,
-        "tax_class": "",
-        "subtotal": "199",
-        "subtotal_tax": "0",
-        "total": "199",
-        "total_tax": "0",
-        "taxes": [],
-        "meta_data": [],
-        "sku": "MNK-001",
-        "price": 199,
-        "image": {
-          "id": "5700",
-          "src": "http://test.allready.cm/wp-content/uploads/2021/10/black-friday-product-5.jpg"
-        },
-        "parent_name": null
-      }
-    ],
-    "tax_lines": [],
-    "shipping_lines": [
-      {
-        "id": 281,
-        "method_title": "Livraison à Domicile Douala",
-        "method_id": "flat_rate",
-        "instance_id": "9",
-        "total": "5000",
-        "total_tax": "0",
-        "taxes": [],
-        "tax_status": "taxable",
-        "meta_data": [
-          {
-            "id": 2336,
-            "key": "Items",
-            "value": "Augue adipiscing euismod &times; 1",
-            "display_key": "Items",
-            "display_value": "Augue adipiscing euismod &times; 1"
-          }
-        ]
-      }
-    ],
-    "fee_lines": [],
-    "coupon_lines": [],
-    "refunds": [],
-    "payment_url": "https://test.allready.cm/en/checkout/order-pay/35840/?pay_for_order=true&key=wc_order_M2CtnlVCIkUov",
-    "is_editable": false,
-    "needs_payment": false,
-    "needs_processing": true,
-    "date_created_gmt": "2025-02-01T12:26:54",
-    "date_modified_gmt": "2025-02-01T12:26:55",
-    "date_completed_gmt": null,
-    "date_paid_gmt": null,
-    "currency_symbol": "CFA",
-    "_links": {
-      "self": [
+      "parent_name": null
+    }
+  ],
+  "tax_lines": [],
+  "shipping_lines": [
+    {
+      "id": 294,
+      "method_title": "Livraison à Domicile Douala",
+      "method_id": "flat_rate",
+      "instance_id": "9",
+      "total": "23000",
+      "total_tax": "0",
+      "taxes": [],
+      "tax_status": "taxable",
+      "meta_data": [
         {
-          "href": "https://test.allready.cm/en/wp-json/wc/v3/orders/35840",
-          "targetHints": {
-            "allow": [
-              "GET",
-              "POST",
-              "PUT",
-              "PATCH",
-              "DELETE"
-            ]
-          }
-        }
-      ],
-      "collection": [
-        {
-          "href": "https://test.allready.cm/en/wp-json/wc/v3/orders"
-        }
-      ],
-      "customer": [
-        {
-          "href": "https://test.allready.cm/en/wp-json/wc/v3/customers/2"
+          "id": 2444,
+          "key": "Items",
+          "value": "Augue adipiscing euismod &times; 1, Classic wooden chair &times; 2, Decoration wooden present &times; 1, Eames lounge chair &times; 3",
+          "display_key": "Items",
+          "display_value": "Augue adipiscing euismod &times; 1, Classic wooden chair &times; 2, Decoration wooden present &times; 1, Eames lounge chair &times; 3"
         }
       ]
-    },
-    "omnisend_order_status_url": "https://test.allready.cm/en/my-account/view-order/35840/"
+    }
+  ],
+  "fee_lines": [],
+  "coupon_lines": [],
+  "refunds": [],
+  "payment_url": "https://test.allready.cm/checkout/order-pay/35843/?pay_for_order=true&key=wc_order_5bQVNZlDCKE8q",
+  "is_editable": false,
+  "needs_payment": false,
+  "needs_processing": true,
+  "date_created_gmt": "2025-02-03T13:06:35",
+  "date_modified_gmt": "2025-02-03T13:06:37",
+  "date_completed_gmt": null,
+  "date_paid_gmt": null,
+  "currency_symbol": "CFA",
+  "_links": {
+    "self": [
+      {
+        "href": "https://test.allready.cm/wp-json/wc/v3/orders/35843",
+        "targetHints": {
+          "allow": [
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE"
+          ]
+        }
+      }
+    ],
+    "collection": [
+      {
+        "href": "https://test.allready.cm/wp-json/wc/v3/orders"
+      }
+    ]
   }
 }

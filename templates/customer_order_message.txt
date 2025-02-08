@@ -11,7 +11,7 @@
 
 - *Article(s) / Item(s):*  
 [product_names]  
-💵 *Total livraison / Shipping Total:* [shipping_total]  
+💵 *Total livraison / Shipping Total:* [shipping_total] FCFA
 💳 *Paiement / Payment:* [payment_method]  
 
 💰 *Total:* [total] FCFA

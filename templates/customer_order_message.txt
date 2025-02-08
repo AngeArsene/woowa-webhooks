@@ -10,11 +10,8 @@
 - *Quartier / Quarter:* [neighborhood]  
 
 - *Article(s) / Item(s):*  
-
 [product_names]  
+💵 *Total livraison / Shipping Total:* [shipping_total]  
+💳 *Paiement / Payment:* [payment_method]  
 
-- *Total livraison / Shipping Total:* [shipping_total]  
-- *Livraison / Shipping:* [shipping_method]  
-- *Paiement / Payment:* [payment_method]  
-
-💰 *Total:* [total]  
+💰 *Total:* [total] FCFA

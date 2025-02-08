@@ -72,10 +72,8 @@ function product_names(string $products): array
  */
 function formate(array $product_names): string
 {
-    // If there is only one product name, return it directly
-    if (count($product_names) === 1) return $product_names[0];
-    
     $products = '';
+    $last_product = $product_names[array_key_last($product_names)];
     
     // Iterate through each product name
     foreach ($product_names as $product) {
@@ -83,10 +81,10 @@ function formate(array $product_names): string
         $products .= $product."\n";
         // Append a line of dashes equal to the length of the product name
         for ($i = 0; $i < strlen($product); $i++) {
-            $products .= '-';
+            $products .= $last_product === $product ? '' : '-';
         }
         // Append a newline after the dashes
-        $products .= "\n";
+        $products .= $last_product === $product ? "" : "\n";
     }
     // Return the formatted product names string
     return $products;

@@ -56,10 +56,12 @@ final class Application
 
     /**
      * Retrieves the payload from the request.
-     *
-     * @return ?array The payload as an associative array or null if decoding fails.
+     * 
+     * @param string|null $file Optional path to a file.
+     * 
+     * @return array|null The payload as an associative array or null if decoding fails.
      */
-    private function get_payload(): ?array
+    private function get_payload(?string $file = null): ?array
     {
         // Check if the $_POST array is not empty and return its contents if true.
         if (!empty($_POST)) return $_POST;
@@ -68,7 +70,8 @@ final class Application
         header('Content-Type: application/json');
 
         // Decode the JSON payload from the request body
-        return json_decode(file_get_contents('php://input'), true);
+        // If a file path is provided, read from that file; otherwise, read from php://input.
+        return json_decode(file_get_contents(empty($file) ? 'php://input' : self::HOME_DIR."/$file"), true);
     }
 
     /**
@@ -95,14 +98,8 @@ final class Application
      */
     private function abort(): void
     {
-        // Set the content type to application/json
-        header('Content-Type: application/json');
-
-        // Decode the JSON payload from the request body
-        $payload = json_decode(file_get_contents(self::HOME_DIR.'/ac_payload_example'), true);
-
-        // Process the abandoned cart payload
-        $this->process_abandoned_cart($payload);
+        // Send a WhatsApp message to the developer contact about the invalid payload
+        $this->whatsapp->send_message('Invalid payload received.', env()->dev_contact);
     }
 
     /**

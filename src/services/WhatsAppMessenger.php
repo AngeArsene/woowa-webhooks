@@ -128,6 +128,20 @@ final class WhatsAppMessenger implements MessageHandler
     }
 
     /**
+     * Checks if the given phone number is valid.
+     *
+     * @param string $phone_number The phone number to check.
+     * @return bool Returns true if the phone number is valid, false otherwise.
+     */
+    public static function check_number(string $phone_number): bool
+    {
+        // Implement checking if a phone number is valid using WhatsApp
+        return (new self())->request->send(
+            'post', "check_number", ['phone_no' => $phone_number, 'key' => env()->api_key]
+        ) === true;
+    }
+
+    /**
      * Generates the base parameters for the request.
      *
      * @param string $message The message to send.

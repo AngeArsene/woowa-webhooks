@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use GuzzleHttp\Client;
+use WoowaWebhooks\Services\WhatsAppMessenger;
 
 /**
  * Retrieves the phone number from the provided cart URL.
@@ -138,6 +139,24 @@ function intervals(): array
 }
 
 /**
+ * Generates a random phone number.
+ *
+ * @return string A randomly generated phone number.
+ */
+function random_phone_number(): string 
+{
+    // Start the phone number with the country code and a random second digit
+    $phone_number = '+2376' . ['7', '9', '5'][random_int(0, 2)];
+    for ($i = 0; $i < 7; $i++) {
+        $phone_number .= random_int(0, 9);
+    }
+
+    return WhatsAppMessenger::check_number($phone_number) 
+        ? $phone_number 
+        : random_phone_number();
+}
+
+/**
  * Generates an array of random phone numbers.
  *
  * @param int $count The number of random phone numbers to generate. Default is 1.
@@ -150,16 +169,8 @@ function random_phone_numbers(int $count = 1): array
 
     // Loop to generate the specified number of phone numbers
     for ($i = 0; $i < $count; $i++) {
-        // Start the phone number with the country code and a random second digit
-        $phone_number = '+2376' . ['7', '9', '5'][random_int(0, 2)];
-    
-        // Append 7 random digits to complete the phone number
-        for ($i = 0; $i < 7; $i++) {
-            $phone_number .= random_int(0, 9);
-        }
-
-        // Add the generated phone number to the array
-        $phone_numbers[] = $phone_number;
+        // Generate a random phone number and add it to the array
+        $phone_numbers[] = random_phone_number();
     }
 
     // Return the array of generated phone numbers

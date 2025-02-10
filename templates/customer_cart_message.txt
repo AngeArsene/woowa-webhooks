@@ -1,17 +1,19 @@
 Hello [first_name]! 👋
 
-Vous avez laissé des articles dans votre panier !
+Vous avez laissé des articles dans votre panier 🛒!
 ----------------------------------
-You left some items in your cart !
+You left some items in your cart 🛒!
 
 *Résumé du panier :*
 *Cart Summary :*
 - *Nom / Name :* [first_name] [last_name]
-- *Email:* [email]
-- *tel:* [phone_number]
+- *Email :* [email]
+- *tel :* [phone_number]
+- *Address :* [billing_address]
+
 - *Article(s) / Item(s):*
 [product_names]
-- *Total:* [cart_total] FCFA
+💰 *Total :* [cart_total] FCFA
 
 Vous pouvez finaliser votre achat ici :
 -------------------------------------

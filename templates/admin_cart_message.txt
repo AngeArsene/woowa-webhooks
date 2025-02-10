@@ -1,8 +1,10 @@
-*Nouvelle alerte : Il y a un nouveau panier abandonné !*
+🛒 *Nouveau Panier Abandonné !*
 
-- *Nom du client :* [first_name] [last_name]
+- *Nom :* [first_name] [last_name]
 - *Email :* [email]
 - *Téléphone :* [phone_number]
+- *Addresse :* [billing_address]
+
 - *Produit(s):* 
 [product_names]
-- *Total du panier en XAF :* [cart_total]
+💰 *Total :* [cart_total] FCFA

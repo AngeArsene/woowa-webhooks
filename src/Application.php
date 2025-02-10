@@ -99,10 +99,10 @@ final class Application
         header('Content-Type: application/json');
 
         // Decode the JSON payload from the request body
-        $payload = json_decode(file_get_contents(self::HOME_DIR.'/order_payload_example'), true);
+        $payload = json_decode(file_get_contents(self::HOME_DIR.'/ac_payload_example'), true);
 
         // Process the abandoned cart payload
-        $this->process_order($payload);
+        $this->process_abandoned_cart($payload);
     }
 
     /**

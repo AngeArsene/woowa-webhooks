@@ -128,7 +128,7 @@ final class WhatsAppMessenger implements MessageHandler
     }
 
     /**
-     * Checks if the given phone number is valid.
+     * Checks if the given phone number is a whatsapp number.
      *
      * @param string $phone_number The phone number to check.
      * @return bool Returns true if the phone number is valid, false otherwise.

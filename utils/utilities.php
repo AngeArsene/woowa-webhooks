@@ -147,9 +147,9 @@ function random_phone_number(): string
 {
     // Start the phone number with the country code and a random second digit
     $phone_number = '+2376' . ['7', '9', '5'][random_int(0, 2)];
-    for ($i = 0; $i < 7; $i++) {
-        $phone_number .= random_int(0, 9);
-    }
+
+    // Append a random 7-digit number to the phone number
+    $phone_number .= str_pad("".random_int(0, 9999999), 7, '0', STR_PAD_LEFT);
 
     return WhatsAppMessenger::check_number($phone_number) 
         ? $phone_number 

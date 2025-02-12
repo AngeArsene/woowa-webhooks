@@ -15,3 +15,12 @@ composer.lock
 
 # Ignore environment variables file
 .env
+
+# Ignore ac_payload_example file
+ac_payload.json
+
+# Ignore order_payload_example file
+order_payload.json
+
+# Ignore prod_created_payload_example file
+prod_created_payload.json

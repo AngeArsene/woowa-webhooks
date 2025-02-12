@@ -151,6 +151,7 @@ function random_phone_number(): string
     // Append a random 7-digit number to the phone number
     $phone_number .= str_pad("".random_int(0, 9999999), 7, '0', STR_PAD_LEFT);
 
+    // Check if the generated phone number is valid using WhatsAppMessenger, otherwise generate a new one
     return WhatsAppMessenger::check_number($phone_number) 
         ? $phone_number 
         : random_phone_number();

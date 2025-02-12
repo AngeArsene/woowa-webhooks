@@ -39,7 +39,7 @@ final class Application
         $this->whatsapp = new WhatsAppMessenger();
         
         // Handle the payload
-        $this->handle($this->get_payload());
+        $this->handle($this->get_payload('order_payload.json'));
     }
 
     /**
@@ -147,11 +147,20 @@ final class Application
         // Retrieve the customer's phone number.
         $customer_phone = $payload['phone_number'] = get_phone_number($payload);
 
-        // Send a WhatsApp message to the customer about the new order
-        $this->whatsapp->send_message(render('customer_order_message', $payload), $customer_phone);
+        // Render the admin message template with the payload data
+        $admin_message = render('admin_order_message', $payload);
+
+        // Check if the customer's phone number is registered on WhatsApp
+        if (WhatsAppMessenger::check_number($customer_phone)) {
+            // Send a WhatsApp message to the customer about the new order
+            $this->whatsapp->send_message(render('customer_order_message', $payload), $customer_phone);
+        } else {
+            // Append a message to the admin message indicating the customer's phone number is not on WhatsApp
+            $admin_message .= "\n\n*_PS: Le numéro du client n'a pas WhatsApp ; vous feriez mieux de l'appeler._*";
+        }
 
         // Send a WhatsApp message to the admins about the new order
-        $this->whatsapp->send_message(render('admin_order_message', $payload), explode(",", env()->admins));
+        $this->whatsapp->send_message($admin_message, explode(",", env()->admins));
     }
 
     /**

@@ -23,4 +23,4 @@ ac_payload.json
 order_payload.json
 
 # Ignore prod_created_payload_example file
-prod_created_payload.json
+product_created_payload.json

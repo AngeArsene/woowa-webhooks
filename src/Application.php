@@ -178,16 +178,24 @@ final class Application
         // Format the product names and add them to the payload
         $payload['product_names'] = formate(product_names($payload['product_names']));
 
-        // Render the customer messages
-        $user_message = render('customer_cart_message', $payload);
+        // Render the admin messages
+        $admin_message = render('admin_cart_message', $payload);
 
-        // Send a WhatsApp message to the customer about the abandoned cart
-        $this->whatsapp->send_message($user_message, $customer_phone);
-
-        // Send a scheduled message to the customer about the abandoned cart
-        $this->whatsapp->send_schaduler($user_message, $customer_phone, intervals());
+        if (WhatsAppMessenger::check_number($customer_phone)) {
+            $user_message = render('customer_cart_message', $payload);
+    
+            // Send a WhatsApp message to the customer about the abandoned cart
+            $this->whatsapp->send_message($user_message, $customer_phone);
+            // Send a scheduled message to the customer about the abandoned cart
+            $this->whatsapp->send_schaduler($user_message, $customer_phone, intervals());
+        } else {
+            // Append a message to the admin message indicating the customer's phone number is not on WhatsApp
+            $admin_message .= 
+                "\n\n*_PS: Le numéro du client ". 
+                (strlen($customer_phone) === 13 ? "n'a pas WhatsApp ; vous feriez mieux de l'appeler" : "est invalide") . "._*";
+        }
         
         // Send a WhatsApp message to the admins about the abandoned cart
-        $this->whatsapp->send_message(render('admin_cart_message', $payload), explode(",", env()->admins));
+        $this->whatsapp->send_message($admin_message, explode(",", env()->admins));
     }
 }

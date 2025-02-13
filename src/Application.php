@@ -39,7 +39,7 @@ final class Application
         $this->whatsapp = new WhatsAppMessenger();
         
         // Handle the payload
-        $this->handle($this->get_payload('order_payload.json'));
+        $this->handle($this->get_payload());
     }
 
     /**

@@ -66,7 +66,7 @@ final class GoogleSheets
     public function read (string $range): array
     {
         $response = $this->google_sheets->spreadsheets_values->get(self::SPREADSHEET_ID, 'Sheet1!'.$range); // Get the values from the specified range
-        return $response->getValues(); // Return the values
+        return empty($response->getValues()) ? [] : $response->getValues(); // Return the values
     }
 
     /**
@@ -100,12 +100,18 @@ final class GoogleSheets
      */
     public function last_row(): array
     {
-        $values = $this->google_sheets->spreadsheets_values->get(self::SPREADSHEET_ID, 'Sheet1!A:C')->getValues();
+        $values = $this->read('A:C');
         
-        if (empty($values)) {
-            return []; // Return an empty array if no data is found
-        }
-
         return end($values); // Get the last row correctly
+    }
+
+    /**
+     * Get the number of the last row in the Google Sheets.
+     *
+     * @return int The number of the last row.
+     */
+    public function last_row_num(): int
+    {
+        return count($this->read('A:C')); // Get the last row correctly
     }
 }

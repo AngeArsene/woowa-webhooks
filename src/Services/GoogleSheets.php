@@ -92,4 +92,20 @@ final class GoogleSheets
             throw new \BadMethodCallException("Method $name does not exist on " . __CLASS__);
         }
     }
+
+    /**
+     * Retrieves the last row from the Google Sheets.
+     *
+     * @return array The last row data as an associative array.
+     */
+    public function last_row(): array
+    {
+        $values = $this->google_sheets->spreadsheets_values->get(self::SPREADSHEET_ID, 'Sheet1!A:C')->getValues();
+        
+        if (empty($values)) {
+            return []; // Return an empty array if no data is found
+        }
+
+        return end($values); // Get the last row correctly
+    }
 }

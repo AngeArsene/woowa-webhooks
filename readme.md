@@ -170,4 +170,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Authors
 
-- **Ange Arsene** - [WhatsApp](https://wa.me/237699512438) - [Email](mailto:angearsene@example.com)
+- **Ange Arsene** - [WhatsApp](https://wa.me/237699512438) - [Email](mailto:angearsene@gmail.com)

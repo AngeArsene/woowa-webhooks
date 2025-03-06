@@ -30,6 +30,8 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
     ca_intervals = "+1 day, +3 days, +7 days"
     ```
 
+5. Add a `credentials.json` file in the `files` folder for Google Sheets API authentication.
+
 ## Usage
 
 1. Start the application:
@@ -62,6 +64,7 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
     - `Collection.php`: An abstract base class for collections.
     - `NewOrderCollection.php`: A collection class for handling new orders.
   - `Services/WhatsAppMessenger.php`: Handles sending messages via WhatsApp.
+  - `Services/GoogleSheets.php`: Handles interactions with Google Sheets.
   - `Services/MessageHandler.php`: Interface for handling messages.
   - `Services/Exceptions/MessagingException.php`: Custom exception for handling messaging errors.
   - `Request.php`: Handles sending HTTP requests using GuzzleHttp.
@@ -72,6 +75,8 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 - `templates/`: Contains message templates.
   - `customer_order_message.txt`: Template for customer order messages.
   - `admin_order_message.txt`: Template for admin order messages.
+- `files/`: Contains necessary files for the application.
+  - `credentials.json`: Google Sheets API authentication file.
 - `.env`: Environment variables file.
 - `composer.json`: Composer configuration file.
 
@@ -89,6 +94,7 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
   - `process()`: Processes the payload.
   - `process_order()`: Processes an order payload.
   - `process_abandoned_cart()`: Processes an abandoned cart payload.
+  - `store()`: Stores the payload in Google Sheets.
 
 ### Collection Class
 
@@ -115,6 +121,15 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
   - `send_scheduler()`: Sends a scheduled message via WhatsApp.
   - `send_request()`: Sends a request to the given URL with the provided message and recipient.
   - `base_params()`: Generates the base parameters for the request.
+
+### GoogleSheets Class
+
+- **Description**: Handles interactions with Google Sheets.
+- **Methods**:
+  - `__construct()`: Initializes the Google Sheets service.
+  - `bootstrap()`: Initializes the Google client with necessary configurations.
+  - `read()`: Reads data from a specified range in the Google Spreadsheet.
+  - `__call()`: Handles dynamic method calls for updating or appending values to a Google Sheets spreadsheet.
 
 ### MessageHandler Interface
 
@@ -154,4 +169,5 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Authors
+
 - **Ange Arsene** - [WhatsApp](https://wa.me/237699512438) - [Email](mailto:angearsene@example.com)

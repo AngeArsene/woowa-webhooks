@@ -7,53 +7,54 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 ## Installation
 
 1. Clone the repository:
-    ```sh
-    git clone https://github.com/AngeArsene/woowa-webhooks.git
-    ```
 
+   ```sh
+   git clone https://github.com/AngeArsene/woowa-webhooks.git
+   ```
 2. Navigate to the project directory:
-    ```sh
-    cd woowa-webhooks
-    ```
 
+   ```sh
+   cd woowa-webhooks
+   ```
 3. Install the dependencies using Composer:
-    ```sh
-    composer install
-    ```
 
+   ```sh
+   composer install
+   ```
 4. Create a `.env` file in the root directory and add your environment variables:
-    ```properties
-    api_key = "your_api_key"
-    base_url = "https://notifapi.com"
-    dev_contact = "developer_contact_number"
-    admins = "admin1_phone,admin2_phone"
-    ca_intervals = "+1 day, +3 days, +7 days"
-    ```
 
+   ```properties
+   api_key = "your_api_key"
+   base_url = "https://notifapi.com"
+   dev_contact = "developer_contact_number"
+   admins = "admin1_phone,admin2_phone"
+   ca_intervals = "+1 day, +3 days, +7 days"
+   ```
 5. Add a `credentials.json` file in the `files` folder for Google Sheets API authentication.
 
 ## Usage
 
 1. Start the application:
-    ```sh
-    php -S localhost:8000
-    ```
 
+   ```sh
+   php -S localhost:8000
+   ```
 2. Send a POST request to the application with the payload:
-    ```json
-    {
-        "order_id": "12345",
-        "status": "completed"
-    }
-    ```
 
+   ```json
+   {
+       "order_id": "12345",
+       "status": "completed"
+   }
+   ```
 3. To send an abandoned cart notification, send a POST request with the payload:
-    ```json
-    {
-        "checkout_url": "https://example.com/checkout",
-        "phone": "customer_phone_number"
-    }
-    ```
+
+   ```json
+   {
+       "checkout_url": "https://example.com/checkout",
+       "phone": "customer_phone_number"
+   }
+   ```
 
 ## Project Structure
 

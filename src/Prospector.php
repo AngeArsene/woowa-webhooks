@@ -92,6 +92,6 @@ final class Prospector
      */
     private function prospect(): void
     {
-        var_dump($this->get_prospects($this->prospects_ranges())); // Output the prospects
+        $this->get_prospects($this->prospects_ranges()); // Output the prospects
     }
 }

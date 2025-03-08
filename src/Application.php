@@ -6,6 +6,7 @@ namespace WoowaWebhooks;
 
 use Exception;
 use Dotenv\Dotenv;
+use WoowaWebhooks\Services\Spreadsheets;
 use WoowaWebhooks\Services\GoogleSheets;
 use WoowaWebhooks\Services\WhatsAppMessenger;
 use WoowaWebhooks\Collections\NewOrderCollection;
@@ -46,7 +47,7 @@ final class Application
         $this->google_sheet = new GoogleSheets();
         
         // Handle the payload
-        $this->handle($this->get_payload());
+        (new Spreadsheets())->delete_row(3, ['nken', 'mandeng', 'ange', 'arsene']);
     }
 
     /**

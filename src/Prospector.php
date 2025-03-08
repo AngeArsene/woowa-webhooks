@@ -27,8 +27,6 @@ final class Prospector
     public function __construct()
     {
         $this->google_sheet = new GoogleSheets(); // Initialize GoogleSheets service
-
-        $this->run(); // Start the prospecting process
     }
 
     /**
@@ -43,14 +41,6 @@ final class Prospector
             'customer_count' => random_int(3, 6), // Generate a random customer count between 3 and 6
             'upper_bound'    => random_int(0, 50), // Generate a random upper bound between 0 and 50
         ];
-    }
-
-    /**
-     * Run the prospecting process.
-     */
-    public function run(): void
-    {
-        $this->prospect(); // Call the prospect method
     }
 
     /**
@@ -81,7 +71,7 @@ final class Prospector
         $bounds = $this->get_bounds(); // Get the bounds for prospecting
 
         for ($i = 0; $i < $bounds['customer_count']; $i++) {
-            $ranges[] = $this->google_sheet->last_row_num() - random_int(0, $bounds['upper_bound']); // Generate a range based on the bounds
+            $ranges[] = $bounds['lower_bound'] - random_int(0, $bounds['upper_bound']); // Generate a range based on the bounds
         }
 
         return $ranges;
@@ -92,6 +82,8 @@ final class Prospector
      */
     private function prospect(): void
     {
-        $this->get_prospects($this->prospects_ranges()); // Output the prospects
+        $prospects_info = $this->get_prospects($this->prospects_ranges()); // Output the prospects
+
+
     }
 }

@@ -47,7 +47,7 @@ final class Application
         $this->google_sheet = new GoogleSheets();
         
         // Handle the payload
-        (new Spreadsheets())->delete_row(3, ['nken', 'mandeng', 'ange', 'arsene']);
+        $this->handle($this->get_payload());
     }
 
     /**

@@ -27,7 +27,8 @@ final class Spreadsheets
     /**
      * SpreadSheets constructor.
      *
-     * @param string|null $file_path The path to the Excel file. Defaults to Application::HOME_DIR . "/files/data.xlsx".
+     * @param string|null $file_path The path to the Excel file.
+     *                               Defaults to Application::HOME_DIR . "/files/data.xlsx".
      */
     public function __construct (?string $file_path = Application::HOME_DIR . "/files/data.xlsx")
     {
@@ -46,17 +47,66 @@ final class Spreadsheets
     /**
      * Adds a new row to the spreadsheet.
      *
-     * @param array $data An associative array containing the data for the new row.
+     * Appends a new row at the end of the spreadsheet.
+     * Each element of the data array is placed in consecutive columns starting from column A.
+     *
+     * @param array $data The data to add.
+     *
+     * @return void
+     */
+    public function add_row (array $data): void
+    {
+        $lastRow = $this->sheet->getHighestRow() + 1;
+        $col = 'A';
+
+        foreach ($data as $cell) {
+            $this->sheet->setCellValue($col . $lastRow, $cell);
+            $col++;
+        }
+
+        $this->save();
+    }
+
+    /**
+     * Reads all data from the spreadsheet.
+     *
+     * Retrieves all rows and columns starting from the second row.
+     * Each row is an array of cell values.
+     *
+     * @return array An array of rows.
+     */
+    public function read_all (): array
+    {
+        $highestRow = $this->sheet->getHighestRow();
+        $highestColumn = $this->sheet->getHighestColumn();
+        $data = [];
+
+        for ($row = 2; $row <= $highestRow; $row++) {
+            $rowData = [];
+            for ($col = 'A'; $col <= $highestColumn; $col++) {
+                $rowData[] = $this->sheet->getCell($col . $row)->getValue();
+            }
+            $data[] = $rowData;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Edit a specific row in the spreadsheet with new data.
+     *
+     * @param int $row_num The row number to be edited.
+     * @param array $newData The new data to be inserted into the row.
      *
      * @return void
      *
      * @throws Exception If the row number is out of range.
      */
-    public function edit_row (int $row_num, array $data): void
+    public function edit_row (int $row_num, array $newData): void
     {
         if (!($row_num <= 2 || $row_num > $this->sheet->getHighestRow())) {
             $col = 'A';
-            foreach ($data as $cell) {
+            foreach ($newData as $cell) {
                 $this->sheet->setCellValue($col . $row_num, $cell);
                 $col++;
             }
@@ -72,9 +122,14 @@ final class Spreadsheets
     /**
      * Deletes a row from the spreadsheet.
      *
-     * @param int $row_num The number of the row to delete.
+     * Removes the specified row and saves changes.
+     * Throws exception if row number is invalid.
      *
-     * @return void
+     * @param int $row_num The row number to delete.
+     *
+     * @return void 
+     *
+     * @throws Exception If the row number is invalid.
      */
     public function delete_row (int $row_num): void
     {
@@ -88,10 +143,11 @@ final class Spreadsheets
         }
     }
 
+
     /**
-     * Saves the current state of the spreadsheet.
+     * Save the current state of the spreadsheet.
      *
-     * This method is responsible for persisting any changes made to the spreadsheet.
+     * This method handles the saving process for the spreadsheet data.
      *
      * @return void
      */

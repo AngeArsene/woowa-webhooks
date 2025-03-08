@@ -66,6 +66,7 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
     - `NewOrderCollection.php`: A collection class for handling new orders.
   - `Services/WhatsAppMessenger.php`: Handles sending messages via WhatsApp.
   - `Services/GoogleSheets.php`: Handles interactions with Google Sheets.
+  - `Services/Spreadsheets.php`: Handles operations related to spreadsheets.
   - `Services/MessageHandler.php`: Interface for handling messages.
   - `Services/Exceptions/MessagingException.php`: Custom exception for handling messaging errors.
   - `Request.php`: Handles sending HTTP requests using GuzzleHttp.
@@ -131,6 +132,17 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
   - `bootstrap()`: Initializes the Google client with necessary configurations.
   - `read()`: Reads data from a specified range in the Google Spreadsheet.
   - `__call()`: Handles dynamic method calls for updating or appending values to a Google Sheets spreadsheet.
+
+### Spreadsheets Class
+
+- **Description**: Handles operations related to spreadsheets.
+- **Methods**:
+  - `__construct()`: Initializes the spreadsheet.
+  - `add_row()`: Adds a new row to the spreadsheet.
+  - `read_all()`: Reads all data from the spreadsheet.
+  - `edit_row()`: Edits a specific row in the spreadsheet with new data.
+  - `delete_row()`: Deletes a row from the spreadsheet.
+  - `save()`: Saves the current state of the spreadsheet.
 
 ### MessageHandler Interface
 

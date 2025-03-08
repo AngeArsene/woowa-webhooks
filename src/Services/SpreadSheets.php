@@ -143,7 +143,6 @@ final class Spreadsheets
         }
     }
 
-
     /**
      * Save the current state of the spreadsheet.
      *

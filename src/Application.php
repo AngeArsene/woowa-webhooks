@@ -34,6 +34,16 @@ final class Application
     public GoogleSheets $google_sheet;
 
     /**
+     * @var Spreadsheets $spreadsheet An instance of the Spreadsheets class.
+     */
+    public Spreadsheets $spreadsheet;
+
+    /**
+     * @var string $status The current status of the application.
+     */
+    private string $status;
+
+    /**
      * Application constructor.
      * Initializes the environment, retrieves the payload, handles it, and sends a message.
      */
@@ -45,9 +55,10 @@ final class Application
         // Initialize GoogleSheets and WhatsAppMessenger instances
         $this->whatsapp     = new WhatsAppMessenger();
         $this->google_sheet = new GoogleSheets();
+        $this->spreadsheet  = new Spreadsheets();
         
         // Handle the payload
-        $this->handle($this->get_payload());
+        $this->handle($this->get_payload('ac_payload.json'));
     }
 
     /**
@@ -119,13 +130,14 @@ final class Application
     private function process(array $payload): void
     {
         // Determine the status from the payload, using 'status' if available, otherwise fallback to 'order_status'.
-        $status = $payload['status'] ?? $payload['order_status'];
+        $this->status = $payload['status'] ?? $payload['order_status'];
 
         // Switch based on the status of the payload
-        switch ($status) {
+        switch ($this->status) {
             case 'abandoned':
                 // If the status is 'abandoned', process the abandoned cart
                 $this->process_abandoned_cart($payload);
+                $this->store($payload);
                 break;
             
             case 'processing':
@@ -144,6 +156,7 @@ final class Application
      * Processes an order payload.
      *
      * @param array $payload The order payload to process.
+     * 
      * @return void
      */
     private function process_order(array $payload): void
@@ -178,6 +191,7 @@ final class Application
      * Processes an abandoned cart payload.
      *
      * @param array $payload The abandoned cart payload to process.
+     * 
      * @return void
      */
     private function process_abandoned_cart(array $payload): void
@@ -207,7 +221,7 @@ final class Application
         
         // Send a WhatsApp message to the admins about the abandoned cart
         $this->whatsapp->send_message($admin_message, explode(",", env()->admins));
-
+        
         // Store the payload in the Google Sheets spreadsheet
         $this->store($payload);
     }
@@ -223,8 +237,43 @@ final class Application
     {
         // Log the stored payload
         error_log(debug($payload));
+
+        switch ($this->status) {
+            case 'abandoned':
+                $this->cart_prospection($payload);
+                break;
+            
+            case 'processing':
+                // Store the payload in the Google Sheets spreadsheet
+                $this->google_sheet->append([$payload['first_name'], $payload['last_name'], get_phone_number($payload)]);
+                break;
+            
+            default:
+                // For any other status, abort the processing
+                $this->abort();
+                break;
+        }
         
         // Store the payload in the Google Sheets spreadsheet
-        $this->google_sheet->append([$payload['first_name'], $payload['last_name'], $payload['phone_number']]);
+        $this->google_sheet->append([$payload['first_name'], $payload['last_name'], get_phone_number($payload)]);
+    }
+
+    /**
+     * Handles the cart prospection process.
+     *
+     * @param array $payload The data payload for the cart prospection.
+     *
+     * @return void
+     */
+    private function cart_prospection(array $payload): void
+    {
+        $image_link   = get_image_links_from($payload['product_table'])[0];
+        $products     = preg_split('/-{5,}/', $payload['product_names'])[0];
+        $message      = render(
+            'cart_prospection_message', 
+            ['first_name' => $payload['first_name'], 'product_name' => $products]
+        );
+
+        $this->spreadsheet->append_row([$message, $image_link]);
     }
 }

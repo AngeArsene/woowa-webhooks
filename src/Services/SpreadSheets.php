@@ -54,7 +54,7 @@ final class Spreadsheets
      *
      * @return void
      */
-    public function add_row (array $data): void
+    public function append_row (array $data): void
     {
         $lastRow = $this->sheet->getHighestRow() + 1;
         $col = 'A';

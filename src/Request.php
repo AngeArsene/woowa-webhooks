@@ -33,7 +33,7 @@ final class Request
     public function __construct ()
     {
         // Initialize the HTTP client with SSL verification disabled
-        $this->http_client = new Client(['verify' => false]);
+        $this->http_client = new Client();
     }
 
     /**

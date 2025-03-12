@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace WoowaWebhooks;
 
+use WoowaWebhooks\Services\Spreadsheets;
 use WoowaWebhooks\Services\GoogleSheets;
+use WoowaWebhooks\Services\WhatsAppMessenger;
 
 /**
  * Class Prospector
@@ -21,12 +23,30 @@ final class Prospector
     public GoogleSheets $google_sheet;
 
     /**
+     * @var Spreadsheets The spreadsheet instance used in the Prospector class.
+     */
+    public Spreadsheets $spreadsheet;
+
+    /**
+     * @var WhatsAppMessenger Instance of WhatsAppMessenger used for sending messages.
+     */
+    public WhatsAppMessenger $whatsapp;
+
+    /**
      * Prospector constructor.
      * Initializes the GoogleSheets service and runs the prospecting process.
      */
     public function __construct()
     {
+        Application::init_env(); // Initialize environment variables
+        
         $this->google_sheet = new GoogleSheets(); // Initialize GoogleSheets service
+        $this->whatsapp     = new WhatsAppMessenger(); // Initialize WhatsAppMessenger service
+        $this->spreadsheet  = new Spreadsheets(); // Get the spreadsheet from Local
+
+        // $this->prospect_prospects(); // Perform the prospecting process
+
+        var_dump($this->spreadsheet->get_random_row());
     }
 
     /**
@@ -57,7 +77,7 @@ final class Prospector
             $prospects[] = $this->google_sheet->read("A$range:C$range"); // Read data from Google Sheets for the given range
         }
 
-        return $prospects;
+        return [['Ange', 'Arsene', '+237699512438']];
     }
 
     /**
@@ -79,11 +99,25 @@ final class Prospector
 
     /**
      * Perform the prospecting process.
+     *
+     * This method retrieves prospect information from Google Sheets,
+     * generates messages, and sends them via WhatsApp.
      */
-    private function prospect(): void
+    private function prospect_prospects(): void
     {
         $prospects_info = $this->get_prospects($this->prospects_ranges()); // Output the prospects
+        $message_info   = $this->spreadsheet->get_random_row(); // Get a random row from Local Sheet
 
+        foreach ($prospects_info as $prospect_info) {
+            $phone_number = $prospect_info[2]; // Get the phone number from the prospect info
 
+            $this->whatsapp->send_message(
+                replace_placeholders($message_info[0], ['first_name' => $prospect_info[0]]
+            ), $phone_number, $message_info[2]); // Send a message to the prospect
+
+            $this->whatsapp->send_message(
+                replace_placeholders($message_info[1], ['first_name' => $prospect_info[0]]), $phone_number
+            ); // Send a message to the prospect
+        }
     }
 }

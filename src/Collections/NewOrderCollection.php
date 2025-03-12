@@ -17,6 +17,11 @@ final class NewOrderCollection extends Collection
     private static array $billing;
 
     /**
+     * @var array $product An array to store product information for the new order collection.
+     */
+    private static array $product;
+
+    /**
      * Initialize the collection with the given payload.
      * 
      * @param array $payload The data to initialize the collection.
@@ -27,6 +32,7 @@ final class NewOrderCollection extends Collection
         parent::bootstrap($payload);
         // Set the billing information
         self::$billing = $payload['billing'];
+        self::$product = $payload['line_items'][0];
     }
 
     /**
@@ -51,7 +57,10 @@ final class NewOrderCollection extends Collection
             'shipping_total'  => self::$data['shipping_lines'][0]['total'],
             'shipping_method' => self::$data['shipping_lines'][0]['method_title'],
             'payment_method'  => self::$data['payment_method_title'],
+            'product_price'   => self::$product['price'],
+            'product_image'   => self::$product['image']['src'],
             'product_names'   => self::product_names(self::$data['line_items']),
+            'product_name'    => self::$product['name'],
             'neighborhood'    => self::$billing['address_1'],
             'phone_number'    => self::$billing['phone'],
         ];

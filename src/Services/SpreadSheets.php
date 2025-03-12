@@ -9,6 +9,7 @@ use WoowaWebhooks\Application;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 /**
@@ -143,6 +144,44 @@ final class Spreadsheets
         }
     }
 
+    /**
+     * Get a random row from the spreadsheet.
+     *
+     * @return array The random row data.
+     */
+    public function get_random_row(): array
+    {
+        $totalRows = $this->sheet->getHighestRow(); // Get total row count
+
+        if ($totalRows <= 1) {
+            throw new Exception("No data rows available in the spreadsheet.");
+        }
+
+        $randomIndex = rand(2, $totalRows); // Choose a random row (assuming 1-based index)
+        
+        return $this->read_row($randomIndex); // Read only the random row
+    }
+
+    /**
+     * Read a specific row from the spreadsheet.
+     *
+     * @param int $rowIndex The index of the row to read (1-based index).
+     * @return array The row data as an indexed array.
+     */
+    public function read_row(int $rowIndex): array
+    {
+        $highestColumn = $this->sheet->getHighestColumn(); // e.g., "D"
+        $highestColumnIndex = Coordinate::columnIndexFromString($highestColumn); // Convert "D" to 4
+    
+        $rowData = [];
+        for ($col = 1; $col <= $highestColumnIndex; $col++) {
+            $cell = $this->sheet->getCell(Coordinate::stringFromColumnIndex($col) . $rowIndex);
+            $rowData[] = $cell->getValue();
+        }
+    
+        return $rowData;
+    }
+    
     /**
      * Save the current state of the spreadsheet.
      *

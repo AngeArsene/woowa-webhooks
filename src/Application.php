@@ -66,7 +66,7 @@ final class Application
      *
      * @return void
      */
-    private static function init_env(): void
+    public static function init_env(): void
     {
         // Create a Dotenv instance and load environment variables
         $dotenv = Dotenv::createImmutable(self::HOME_DIR);
@@ -137,7 +137,6 @@ final class Application
             case 'abandoned':
                 // If the status is 'abandoned', process the abandoned cart
                 $this->process_abandoned_cart($payload);
-                $this->store($payload);
                 break;
             
             case 'processing':
@@ -161,7 +160,6 @@ final class Application
      */
     private function process_order(array $payload): void
     {
-        error_log(debug($payload));
         // Filter the payload to only include required fields
         $payload = NewOrderCollection::filter($payload);
 
@@ -244,13 +242,7 @@ final class Application
                 break;
             
             case 'processing':
-                // Store the payload in the Google Sheets spreadsheet
-                $this->google_sheet->append([$payload['first_name'], $payload['last_name'], get_phone_number($payload)]);
-                break;
-            
-            default:
-                // For any other status, abort the processing
-                $this->abort();
+                $this->new_order_prospection($payload);
                 break;
         }
         
@@ -267,13 +259,37 @@ final class Application
      */
     private function cart_prospection(array $payload): void
     {
-        $image_link   = get_image_links_from($payload['product_table'])[0];
-        $products     = preg_split('/-{5,}/', $payload['product_names'])[0];
-        $message      = render(
-            'cart_prospection_message', 
-            ['first_name' => $payload['first_name'], 'product_name' => $products]
-        );
+        $image_link     = get_image_links_from($payload['product_table'])[0];
+        $product_name   = preg_split('/-{5,}/', $payload['product_names'])[0];
 
-        $this->spreadsheet->append_row([$message, $image_link]);
+        $fr_message = render('fr_cart_prospection_message', ['product_name' => $product_name]);
+        $en_message = render('en_cart_prospection_message', ['product_name' => $product_name]);
+
+        $this->spreadsheet->append_row([$fr_message, $en_message, $image_link]);
+    }
+
+    /**
+     * Handles the creation of a new order prospection.
+     *
+     * @param array $payload The data associated with the new order.
+     *
+     * @return void
+     */
+    private function new_order_prospection (array $payload): void
+    {
+        $image_link   = $payload['product_image'];
+        $product_name = trim(explode(' - ', preg_split('/-{5,}/', $payload['product_names'])[0])[0]);
+
+        $fr_message = render('fr_new_order_prospection_message', [
+            'product_name'  => $product_name,
+            'product_price' => $payload['product_price']
+        ]);
+
+        $en_message = render('en_new_order_prospection_message', [
+            'product_name'  => $product_name,
+            'product_price' => $payload['product_price']
+        ]);
+
+        $this->spreadsheet->append_row([$fr_message, $en_message, $image_link]);
     }
 }

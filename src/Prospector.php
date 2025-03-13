@@ -44,9 +44,9 @@ final class Prospector
         $this->whatsapp     = new WhatsAppMessenger(); // Initialize WhatsAppMessenger service
         $this->spreadsheet  = new Spreadsheets(); // Get the spreadsheet from Local
 
-        // $this->prospect_prospects(); // Perform the prospecting process
+        $this->prospect_prospects(); // Perform the prospecting process
 
-        var_dump($this->spreadsheet->get_random_row());
+        var_dump($this->get_prospects($this->prospects_ranges()));
     }
 
     /**
@@ -58,7 +58,7 @@ final class Prospector
     {
         return [
             'lower_bound'    => $this->google_sheet->last_row_num(), // Get the last row number from Google Sheets
-            'customer_count' => random_int(3, 6), // Generate a random customer count between 3 and 6
+            'customer_count' => 1, // Generate a random customer count between 3 and 6
             'upper_bound'    => random_int(0, 50), // Generate a random upper bound between 0 and 50
         ];
     }
@@ -77,6 +77,7 @@ final class Prospector
             $prospects[] = $this->google_sheet->read("A$range:C$range"); // Read data from Google Sheets for the given range
         }
 
+        // return [flatten_array($prospects)];
         return [['Ange', 'Arsene', '+237699512438']];
     }
 
@@ -116,8 +117,8 @@ final class Prospector
             ), $phone_number, $message_info[2]); // Send a message to the prospect
 
             $this->whatsapp->send_message(
-                replace_placeholders($message_info[1], ['first_name' => $prospect_info[0]]), $phone_number
-            ); // Send a message to the prospect
+                replace_placeholders($message_info[1], ['first_name' => $prospect_info[0]]
+            ), $phone_number, $message_info[2]); // Send a message to the prospect
         }
     }
 }

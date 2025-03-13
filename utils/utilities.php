@@ -175,3 +175,20 @@ function random_phone_numbers(int $count = 1): array
     // Return the array of generated phone numbers
     return $phone_numbers;
 }
+
+/**
+ * Recursively flattens a deeply nested array.
+ *
+ * @param array $array The input nested array.
+ * @return array A flat array containing only values.
+ */
+function flatten_array(array $array): array
+{
+    $result = [];
+
+    array_walk_recursive($array, function ($value) use (&$result) {
+        $result[] = $value;
+    });
+    
+    return $result;
+}

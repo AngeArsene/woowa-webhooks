@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace WoowaWebhooks;
 
+use Cocur\Slugify\Slugify;
 use Exception;
 use Dotenv\Dotenv;
 use WoowaWebhooks\Services\Spreadsheets;
 use WoowaWebhooks\Services\GoogleSheets;
+use WoowaWebhooks\Services\WooCommerceApi;
 use WoowaWebhooks\Services\WhatsAppMessenger;
 use WoowaWebhooks\Collections\NewOrderCollection;
-use WoowaWebhooks\Services\WooCommerce;
 
 /**
  * The main application class for handling webhooks.
@@ -44,7 +45,10 @@ final class Application
      */
     private string $status;
 
-    private WooCommerce $woocommerce;
+    /**
+     * @var WooCommerceApi $woocommerce An instance of the WooCommerceApi class used to interact with the WooCommerce API.
+     */
+    private WooCommerceApi $woocommerce;
 
     /**
      * Application constructor.
@@ -55,13 +59,7 @@ final class Application
         // Initialize environment variables
         self::init_env();
 
-        // Initialize GoogleSheets and WhatsAppMessenger instances
-        $this->whatsapp     = new WhatsAppMessenger();
-        $this->google_sheet = new GoogleSheets();
-        $this->spreadsheet  = new Spreadsheets();
-        
-        // Handle the payload
-        $this->handle($this->get_payload('order_payload.json'));
+        var_dump((new WooCommerceApi())->get_product_data("Réfrigérateur Américain – SPJ – Porte Française – 435 Litres"));
     }
 
     /**
@@ -239,6 +237,11 @@ final class Application
         // Log the stored payload
         error_log(debug($payload));
 
+        // Initialize WooCommerceApi, GoogleSheets and Spreadsheets instance 
+        $this->woocommerce  = new WooCommerceApi();
+        $this->google_sheet = new GoogleSheets();
+        $this->spreadsheet  = new Spreadsheets();
+
         switch ($this->status) {
             case 'abandoned':
                 $this->cart_prospection($payload);
@@ -262,14 +265,16 @@ final class Application
      */
     private function cart_prospection(array $payload): void
     {
-        $image_link     = get_image_links_from($payload['product_table'])[0];
-        $product_name   = preg_split('/-{5,}/', $payload['product_names'])[0];
-        $product_data   = $this->woocommerce->get_product_data($product_name);
+        $product_name  = preg_split('/-{5,}/', $payload['product_names'])[0];
+        $product       = $this->woocommerce->get_product_data($product_name);
+        $product_image = get_image_links_from($payload['product_table'])[0];
 
-        $fr_message = render('fr_cart_prospection_message', ['product_name' => $product_name]);
-        $en_message = render('en_cart_prospection_message', ['product_name' => $product_name]);
-
-        $this->spreadsheet->append_row([$fr_message, $en_message, $image_link]);
+        $this->spreadsheet->append_row([
+            $product_name,
+            $product['price'] ?? $payload['cart_total'], 
+            $product['link'] ?? 'https://allready.cm/product/'.((new Slugify())->slugify($product_name)), 
+            $product_image
+        ]);
     }
 
     /**
@@ -281,19 +286,16 @@ final class Application
      */
     private function new_order_prospection (array $payload): void
     {
-        $image_link   = $payload['product_image'];
-        $product_name = trim(explode(' - ', preg_split('/-{5,}/', $payload['product_names'])[0])[0]);
+        $product_image = $payload['product_image'];
+        $product_name  = trim(explode(' - ', preg_split('/-{5,}/', $payload['product_names'])[0])[0]);
 
-        $fr_message = render('fr_new_order_prospection_message', [
-            'product_name'  => $product_name,
-            'product_price' => $payload['product_price']
+        $product = $this->woocommerce->get_product_data($product_name);
+
+        $this->spreadsheet->append_row([
+            $product_name, 
+            $payload['product_price'] ?? $product['price'], 
+            $payload['product_link'] ?? $product['link'], 
+            $product_image
         ]);
-
-        $en_message = render('en_new_order_prospection_message', [
-            'product_name'  => $product_name,
-            'product_price' => $payload['product_price']
-        ]);
-
-        $this->spreadsheet->append_row([$fr_message, $en_message, $image_link]);
     }
 }

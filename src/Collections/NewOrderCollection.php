@@ -60,6 +60,7 @@ final class NewOrderCollection extends Collection
             'product_price'   => self::$product['price'],
             'product_image'   => self::$product['image']['src'],
             'product_names'   => self::product_names(self::$data['line_items']),
+            'product_link'    => self::get_product_link(self::$data['meta_data']),
             'product_name'    => self::$product['name'],
             'neighborhood'    => self::$billing['address_1'],
             'phone_number'    => self::$billing['phone'],
@@ -82,5 +83,22 @@ final class NewOrderCollection extends Collection
 
         // Return the formatted product names
         return formate($product_names);
+    }
+
+    /**
+     * Retrieves the product link from the given payload.
+     *
+     * @param array $meta_data The payload containing meta data.
+     * @return string|null The product link if found, otherwise null.
+     */
+    private static function get_product_link (array $meta_data): ?string
+    {
+        foreach ($meta_data as $meta) {
+            if ($meta['key'] == '_wc_order_attribution_session_entry') {
+                return $meta['value'];
+            }
+        }
+
+        return null;
     }
 }

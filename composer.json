@@ -1,0 +1,29 @@
+{
+    "name": "angearsene/woowa-webhooks",
+    "description": "Integrate WhatsApp order notifications into your WooCommerce store with this package. It enables real-time updates for customers via WhatsApp whenever an order is placed, updated, or completed, enhancing customer engagement and improving order tracking.",
+    "type": "project",
+    "require": {
+        "vlucas/phpdotenv": "^5.6@dev",
+        "google/apiclient": "^2.0@dev",
+        "phpoffice/phpspreadsheet": "dev-master",
+        "automattic/woocommerce": "dev-trunk"
+    },
+    "license": "MIT",
+    "autoload": {
+        "files": [
+            "utils/env_debug.php",
+            "utils/templates.php",
+            "utils/utilities.php"
+        ],
+        "psr-4": {
+            "WoowaWebhooks\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ange Arsene",
+            "email": "nkenmandenga@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

@@ -1,0 +1,17 @@
+📦 *Nouvelle Commande Reçue !*
+
+👤*Informations sur le Client:*
+
+- *ID* : [id] 
+- *Nom* : [first_name] [last_name]
+- *Email* : [email]
+- *Téléphone* : [phone_number]
+- *Ville* : [city]
+- *Quartier* : [neighborhood]
+
+- *Article(s)* :
+[product_names]
+💵 *Total livraison :* [shipping_total] FCFA
+💳 *Paiement* : [payment_method]
+
+💰 *Montant Total* : [total] FCFA

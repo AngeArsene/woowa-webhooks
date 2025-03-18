@@ -1,0 +1,10 @@
+🛒 *Nouveau Panier Abandonné !*
+
+- *Nom :* [first_name] [last_name]
+- *Email :* [email]
+- *Téléphone :* [phone_number]
+- *Addresse :* [billing_address]
+
+- *Produit(s):* 
+[product_names]
+💰 *Total :* [cart_total] FCFA

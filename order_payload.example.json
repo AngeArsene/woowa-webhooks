@@ -1,0 +1,337 @@
+{
+    "id": 38390,
+    "parent_id": 0,
+    "status": "processing",
+    "currency": "XAF",
+    "version": "9.7.1",
+    "prices_include_tax": false,
+    "date_created": "2025-03-17T10:28:56",
+    "date_modified": "2025-03-17T10:28:57",
+    "discount_total": "0",
+    "discount_tax": "0",
+    "shipping_total": "1500",
+    "shipping_tax": "0",
+    "cart_tax": "0",
+    "total": "17500",
+    "total_tax": "0",
+    "customer_id": 0,
+    "order_key": "wc_order_de3sqjmZRX2Ld",
+    "billing": {
+      "first_name": "Jenny Françoise",
+      "last_name": "EVENA",
+      "company": "",
+      "address_1": "Messassi express union",
+      "address_2": "",
+      "city": "Yaoundé",
+      "state": "",
+      "postcode": "",
+      "country": "",
+      "email": "",
+      "phone": "+237670379301"
+    },
+    "shipping": {
+      "first_name": "Jenny Françoise",
+      "last_name": "EVENA",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "Yaoundé",
+      "state": "",
+      "postcode": "",
+      "country": "",
+      "phone": ""
+    },
+    "payment_method": "cod",
+    "payment_method_title": "Paiement à la livraison",
+    "transaction_id": "",
+    "customer_ip_address": "102.244.88.1",
+    "customer_user_agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36",
+    "created_via": "checkout",
+    "customer_note": "",
+    "date_completed": null,
+    "date_paid": null,
+    "cart_hash": "fed2ca96bdd97d488d3da6c83a9923ca",
+    "number": "38390",
+    "meta_data": [
+      {
+        "id": 716102,
+        "key": "is_vat_exempt",
+        "value": "no"
+      },
+      {
+        "id": 716103,
+        "key": "nwa_after_checkout",
+        "value": "sent"
+      },
+      {
+        "id": 716104,
+        "key": "nwa_after_checkout_seller",
+        "value": "sent"
+      },
+      {
+        "id": 716105,
+        "key": "trp_language",
+        "value": "fr_FR"
+      },
+      {
+        "id": 716106,
+        "key": "_wcfmmp_order_processed",
+        "value": "yes"
+      },
+      {
+        "id": 716107,
+        "key": "_wc_order_attribution_source_type",
+        "value": "organic"
+      },
+      {
+        "id": 716108,
+        "key": "_wc_order_attribution_referrer",
+        "value": "https://www.google.com/"
+      },
+      {
+        "id": 716109,
+        "key": "_wc_order_attribution_utm_source",
+        "value": "google"
+      },
+      {
+        "id": 716110,
+        "key": "_wc_order_attribution_utm_medium",
+        "value": "organic"
+      },
+      {
+        "id": 716111,
+        "key": "_wc_order_attribution_session_entry",
+        "value": "https://allready.cm/fr/product/trottinette-pour-bebe/"
+      },
+      {
+        "id": 716112,
+        "key": "_wc_order_attribution_session_start_time",
+        "value": "2025-03-17 09:23:03"
+      },
+      {
+        "id": 716113,
+        "key": "_wc_order_attribution_session_pages",
+        "value": "4"
+      },
+      {
+        "id": 716114,
+        "key": "_wc_order_attribution_session_count",
+        "value": "1"
+      },
+      {
+        "id": 716115,
+        "key": "_wc_order_attribution_user_agent",
+        "value": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36"
+      },
+      {
+        "id": 716116,
+        "key": "_wc_order_attribution_device_type",
+        "value": "Mobile"
+      },
+      {
+        "id": 716117,
+        "key": "_wcfmaf_order_processed",
+        "value": "yes"
+      },
+      {
+        "id": 716118,
+        "key": "_wcfm_new_order_notified",
+        "value": "yes"
+      },
+      {
+        "id": 716119,
+        "key": "_wcfm_membership_order_processed",
+        "value": "yes"
+      },
+      {
+        "id": 716120,
+        "key": "_wcpdf_invoice_settings",
+        "value": {
+          "display_email": "1",
+          "display_phone": "1",
+          "display_customer_notes": "1",
+          "display_shipping_address": "always",
+          "header_logo": "4840",
+          "header_logo_height": "",
+          "vat_number": "",
+          "coc_number": "",
+          "shop_name": {
+            "default": "AllReady 237 Sarl"
+          },
+          "shop_phone_number": "",
+          "shop_address": {
+            "default": "Douala - Cameroon\nTel : 657538356 / 677386555\nEmail: hello@allready.cm\nNIU : M012416382497K\nRCCM / CM-DLA-022024-B13-00048\n"
+          },
+          "footer": {
+            "default": "CONDITIONS DE GARANTIE :\n1. Tous les appareils sont testés et vérifiés au moment de la vente/livraison (exception : congélateur et réfrigérateur à brancher après 24h. Les appareils non montés (Climatiseurs, Ventilateur, Etc…)\n2. Toutes les marchandises électroniques doivent être branchées sur un régulateur de tension.\n3. Toutes les pièces grillées sous forte ou base tension électrique ou cassées après la vente/livraison sont à la charge du client.\n4. La garantie ne couvre pas les pannes sur afficheurs et accessoires.\n5. Veuillez faire installer vos appareils par des spécialistes, car en cas de casse, l'entreprise ne sera pas responsable.\n6. Nos livreurs ne sont pas des techniciens spécialisés et ne sont pas habilités à installer vos appareils.\n7. En signant ce bordereau, vous confirmez avoir reçu votre article en bonne et due forme.\n\n1. All devices are tested and verified at the time of sale/delivery (exception: freezer and refrigerator to be plugged in after 24 hours. Unmounted devices (Air conditioners, Fans, etc.)\n2. All electronic goods must be plugged into a voltage regulator.\n3. All parts burned out under high or low electrical voltage or broken after sale/delivery are the customer's responsibility.\n4. The warranty does not cover breakdowns on Screen and accessories.\n5. Please have your devices installed by specialists, because in the event of breakage, the company will not be responsible.\n6. Our delivery people are not specialized technicians and are not authorized to install your devices.\n7. By signing this slip, you confirm that you have received your item in good order.\n\n𝑴𝒆𝒓𝒄𝒊 𝒅𝒆 𝒇𝒂𝒊𝒓𝒆 𝒄𝒐𝒏𝒇𝒊𝒂𝒏𝒄𝒆 𝒂̀ / 𝙏𝙝𝙖𝙣𝙠𝙨 𝙛𝙤𝙧 𝙩𝙧𝙪𝙨𝙩𝙞𝙣𝙜\n𝑨𝒍𝒍𝒓𝒆𝒂𝒅𝒚237."
+          },
+          "extra_1": {
+            "default": ""
+          },
+          "extra_2": {
+            "default": ""
+          },
+          "extra_3": {
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": 716121,
+        "key": "_wcpdf_invoice_display_date",
+        "value": "invoice_date"
+      },
+      {
+        "id": 716122,
+        "key": "_wcpdf_invoice_creation_trigger",
+        "value": "email_attachment"
+      },
+      {
+        "id": 716123,
+        "key": "_wcpdf_invoice_date",
+        "value": "1742203737"
+      },
+      {
+        "id": 716124,
+        "key": "_wcpdf_invoice_date_formatted",
+        "value": "2025-03-17 10:28:57"
+      },
+      {
+        "id": 716125,
+        "key": "_wcpdf_invoice_number",
+        "value": "854"
+      },
+      {
+        "id": 716126,
+        "key": "_wcpdf_invoice_number_data",
+        "value": {
+          "number": 854,
+          "formatted_number": "854",
+          "prefix": "",
+          "suffix": "",
+          "document_type": "invoice",
+          "order_id": 38390,
+          "padding": ""
+        }
+      },
+      {
+        "id": 716127,
+        "key": "_wcfmmp_order_email_triggered",
+        "value": "yes"
+      },
+      {
+        "id": 716128,
+        "key": "_gla_tracked",
+        "value": "1"
+      },
+      {
+        "id": 716129,
+        "key": "_thankyou_action_done",
+        "value": "1"
+      },
+      {
+        "id": 716130,
+        "key": "_googlesitekit_ga_purchase_event_tracked",
+        "value": "1"
+      }
+    ],
+    "line_items": [
+      {
+        "id": 12651,
+        "name": "Sèche linge",
+        "product_id": 2178,
+        "variation_id": 0,
+        "quantity": 1,
+        "tax_class": "",
+        "subtotal": "16000",
+        "subtotal_tax": "0",
+        "total": "16000",
+        "total_tax": "0",
+        "taxes": [],
+        "meta_data": [
+          {
+            "id": 103279,
+            "key": "_vendor_id",
+            "value": "3",
+            "display_key": "Store",
+            "display_value": "C Hope"
+          },
+          {
+            "id": 103280,
+            "key": "_wcfmmp_order_item_processed",
+            "value": "5828",
+            "display_key": "Store Order ID",
+            "display_value": "5828"
+          }
+        ],
+        "sku": "",
+        "price": 16000,
+        "image": {
+          "id": "2177",
+          "src": "https://allready.cm/wp-content/uploads/2021/08/etendoir-sechoir-a-linge-3-niveaux-rangement.jpg"
+        },
+        "parent_name": null,
+        "ams_order_thumbnail": "https://allready.cm/wp-content/uploads/2021/08/etendoir-sechoir-a-linge-3-niveaux-rangement-150x150.jpg"
+      }
+    ],
+    "tax_lines": [],
+    "shipping_lines": [
+      {
+        "id": 12652,
+        "method_title": "Livraison à Domicile Yaoundé",
+        "method_id": "flat_rate",
+        "instance_id": "2",
+        "total": "1500",
+        "total_tax": "0",
+        "taxes": [],
+        "tax_status": "taxable",
+        "meta_data": [
+          {
+            "id": 103278,
+            "key": "Articles",
+            "value": "Sèche linge &times; 1",
+            "display_key": "Articles",
+            "display_value": "Sèche linge &times; 1"
+          }
+        ]
+      }
+    ],
+    "fee_lines": [],
+    "coupon_lines": [],
+    "refunds": [],
+    "payment_url": "https://allready.cm/fr/checkout/order-pay/38390/?pay_for_order=true&key=wc_order_de3sqjmZRX2Ld",
+    "is_editable": false,
+    "needs_payment": false,
+    "needs_processing": true,
+    "date_created_gmt": "2025-03-17T09:28:56",
+    "date_modified_gmt": "2025-03-17T09:28:57",
+    "date_completed_gmt": null,
+    "date_paid_gmt": null,
+    "featured_image_src": "",
+    "ams_acf": [],
+    "ams_payment_method_title": "Paiement à la livraison",
+    "order_checkout_payment_url": "https://allready.cm/fr/checkout/order-pay/38390/?pay_for_order=true&key=wc_order_de3sqjmZRX2Ld",
+    "currency_symbol": "CFA",
+    "_links": {
+      "self": [
+        {
+          "href": "https://allready.cm/fr/wp-json/wc/v3/orders/38390",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://allready.cm/fr/wp-json/wc/v3/orders"
+        }
+      ]
+    }
+  }
+  

@@ -1,0 +1,29 @@
+# Ignore readme pdf file
+readme.pdf
+
+# Ignore temporary readme html file
+readme_tmp.html
+
+# Ignore vendor directory (dependencies)
+vendor/
+
+# Ignore PHP error log file
+php_errorlog
+
+# Ignore Composer lock file (dependency versions)
+composer.lock
+
+# Ignore environment variables file
+.env
+
+# Ignore ac_payload_example file (example payload)
+ac_payload.json
+
+# Ignore order_payload_example file (example payload)
+order_payload.json
+
+# Ignore product_created_payload_example file (example payload)
+product_created_payload.json
+
+# Ignore files directory
+/files

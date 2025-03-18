@@ -43,10 +43,10 @@ final class Prospector
         $this->google_sheet = new GoogleSheets(); // Initialize GoogleSheets service
         $this->whatsapp     = new WhatsAppMessenger(); // Initialize WhatsAppMessenger service
         $this->spreadsheet  = new Spreadsheets(); // Get the spreadsheet from Local
-
-        // $this->prospect_prospects(); // Perform the prospecting process
-
+        
         var_dump($this->get_prospects($this->prospects_ranges()));
+        
+        $this->prospect_prospects(); // Perform the prospecting process
     }
 
     /**
@@ -77,8 +77,8 @@ final class Prospector
             $prospects[] = $this->google_sheet->read("A$range:C$range"); // Read data from Google Sheets for the given range
         }
 
-        return [flatten_array($prospects)];
-        // return [['Ange', 'Arsene', '+237699512438']];
+        // return [flatten_array($prospects)];
+        return [['Ange', 'Arsene', '+237699512438']];
     }
 
     /**
@@ -110,7 +110,7 @@ final class Prospector
         $message_info   = $this->spreadsheet->get_random_row(); // Get a random row from Local Sheet
 
         $payload = [
-            'product_name'  => $message_info[0],
+            'product_name'  => preg_replace('/\R/', '', $message_info[0]),
             'product_price' => $message_info[1],
             'product_link'  => $message_info[2],
         ];
@@ -120,13 +120,13 @@ final class Prospector
 
             $this->whatsapp->send_message(
                 render(
-                    'en_prospection_message', array_merge($payload, ['first_name' => $prospect_info[0]])
+                    'fr_prospection_message', array_merge($payload, ['first_name' => $prospect_info[0]])
                 ), $phone_number, $message_info[3]
             ); // Send a message to the prospect
-
+            
             $this->whatsapp->send_message(
                 render(
-                    'fr_prospection_message', array_merge($payload, ['first_name' => $prospect_info[0]])
+                    'en_prospection_message', array_merge($payload, ['first_name' => $prospect_info[0]])
                 ), $phone_number, $message_info[3]
             ); // Send a message to the prospect
         }

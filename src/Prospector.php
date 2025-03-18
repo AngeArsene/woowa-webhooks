@@ -109,16 +109,26 @@ final class Prospector
         $prospects_info = $this->get_prospects($this->prospects_ranges()); // Output the prospects
         $message_info   = $this->spreadsheet->get_random_row(); // Get a random row from Local Sheet
 
+        $payload = [
+            'product_name'  => $message_info[0],
+            'product_price' => $message_info[1],
+            'product_link'  => $message_info[2],
+        ];
+
         foreach ($prospects_info as $prospect_info) {
             $phone_number = $prospect_info[2]; // Get the phone number from the prospect info
 
             $this->whatsapp->send_message(
-                replace_placeholders($message_info[0], ['first_name' => $prospect_info[0]]
-            ), $phone_number, $message_info[2]); // Send a message to the prospect
+                render(
+                    'en_prospection_message', array_merge($payload, ['first_name' => $prospect_info[0]])
+                ), $phone_number, $message_info[3]
+            ); // Send a message to the prospect
 
             $this->whatsapp->send_message(
-                replace_placeholders($message_info[1], ['first_name' => $prospect_info[0]]
-            ), $phone_number, $message_info[2]); // Send a message to the prospect
+                render(
+                    'fr_prospection_message', array_merge($payload, ['first_name' => $prospect_info[0]])
+                ), $phone_number, $message_info[3]
+            ); // Send a message to the prospect
         }
     }
 }

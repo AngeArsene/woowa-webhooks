@@ -59,7 +59,7 @@ final class Prospector
         return [
             'lower_bound'    => $this->google_sheet->last_row_num(), // Get the last row number from Google Sheets
             'customer_count' => 1, // Generate a random customer count between 3 and 6
-            'upper_bound'    => random_int(0, 50), // Generate a random upper bound between 0 and 50
+            'upper_bound'    => random_int(0, 100), // Generate a random upper bound between 0 and 100
         ];
     }
 
@@ -117,9 +117,10 @@ final class Prospector
             'product_link'  => $message_info[2], // Extract the product link
         ];
 
+        
         foreach ($prospects_info as $prospect_info) {
             $phone_number = $prospect_info[2]; // Extract the phone number from the prospect info
-
+            
             // Send a French prospection message to the prospect
             $this->whatsapp->send_message(
                 render(
@@ -134,5 +135,7 @@ final class Prospector
                 ), $phone_number, $message_info[3]
             );
         }
+
+        error_log(debug($payload));
     }
 }

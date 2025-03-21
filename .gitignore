@@ -25,5 +25,8 @@ order_payload.json
 # Ignore product_created_payload_example file (example payload)
 product_created_payload.json
 
+# Ignore cron job batch file
+cron_job.bat
+
 # Ignore files directory
 /files

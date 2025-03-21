@@ -59,7 +59,7 @@ final class Prospector
         return [
             'lower_bound'    => $this->google_sheet->last_row_num(), // Get the last row number from Google Sheets
             'customer_count' => 1, // Generate a random customer count between 3 and 6
-            'upper_bound'    => random_int(0, 100), // Generate a random upper bound between 0 and 100
+            'upper_bound'    => random_int(0, 150), // Generate a random upper bound between 0 and 100
         ];
     }
 
@@ -77,8 +77,8 @@ final class Prospector
             $prospects[] = $this->google_sheet->read("A$range:C$range"); // Read data from Google Sheets for the given range
         }
 
-        // return [flatten_array($prospects)];
-        return [['Ange', 'Arsene', '+237699512438']];
+        return [flatten_array($prospects)];
+        // return [['Ange', 'Arsene', '+237699512438']];
     }
 
     /**

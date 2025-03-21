@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace WoowaWebhooks;
 
+use Automattic\WooCommerce\Client;
 use WoowaWebhooks\Services\Spreadsheets;
 use WoowaWebhooks\Services\GoogleSheets;
 use WoowaWebhooks\Services\WhatsAppMessenger;
+use WoowaWebhooks\Services\WooCommerceApi;
 
 /**
  * Class Prospector
@@ -33,6 +35,11 @@ final class Prospector
     public WhatsAppMessenger $whatsapp;
 
     /**
+     * @var WooCommerceApi $woocommerce The WooCommerce client instance used to interact with the WooCommerce API.
+     */
+    private WooCommerceApi $woocommerce;
+
+    /**
      * Prospector constructor.
      * Initializes the GoogleSheets service and runs the prospecting process.
      */
@@ -43,10 +50,7 @@ final class Prospector
         $this->google_sheet = new GoogleSheets(); // Initialize GoogleSheets service
         $this->whatsapp     = new WhatsAppMessenger(); // Initialize WhatsAppMessenger service
         $this->spreadsheet  = new Spreadsheets(); // Get the spreadsheet from Local
-        
-        var_dump($this->get_prospects($this->prospects_ranges()));
-        
-        $this->prospect_prospects(); // Perform the prospecting process
+        $this->woocommerce  = new WooCommerceApi(); // Initialize the WooCommerce API client
     }
 
     /**
@@ -104,7 +108,7 @@ final class Prospector
      * This method retrieves prospect information from Google Sheets,
      * generates messages, and sends them via WhatsApp.
      */
-    private function prospect_prospects(): void
+    public function prospect_prospects(): void
     {
         // Retrieve prospect information from Google Sheets based on generated ranges
         $prospects_info = $this->get_prospects($this->prospects_ranges()); 
@@ -137,5 +141,26 @@ final class Prospector
         }
 
         error_log(debug($payload));
+    }
+
+    /**
+     * Fills a spreadsheet with product data from a specified WooCommerce category.
+     *
+     * @param ?string $category_name The name of the product category to retrieve. Defaults to 'Smartphones'.
+     *
+     * @return void
+     */
+    public function fill_products_sheets (?int $category_id): void
+    {
+        // Retrieve products in the specified category
+        $products = $this->woocommerce->api_client->get('products', ['category' => $category_id]);
+        foreach ($products as $product) {
+            var_dump([
+                $product->name, $product->price, $product->permalink, $product->images[0]->src
+            ]);
+            $this->spreadsheet->append_row([
+                $product->name, $product->price, $product->permalink, $product->images[0]->src
+            ]);
+        }
     }
 }

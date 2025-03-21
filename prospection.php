@@ -10,4 +10,4 @@ require 'vendor/autoload.php';
 use WoowaWebhooks\Prospector;
 
 // Create a new instance of the Prospector class
-while (true) { $prospector = new Prospector(); sleep(3600); }
+while (true) { (new Prospector())->prospect_prospects(); sleep(3600); }

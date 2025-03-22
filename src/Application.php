@@ -171,20 +171,20 @@ final class Application
         // Retrieve the customer's phone number.
         $customer_phone = $payload['phone_number'] = get_phone_number($payload);
 
-        // // Render the admin message template with the payload data
-        // $admin_message = render('admin_order_message', $payload);
+        // Render the admin message template with the payload data
+        $admin_message = render('admin_order_message', $payload);
 
-        // // Check if the customer's phone number is registered on WhatsApp
-        // if (WhatsAppMessenger::check_number($customer_phone)) {
-        //     // Send a WhatsApp message to the customer about the new order
-        //     $this->whatsapp->send_message(render('customer_order_message', $payload), $customer_phone);
-        // } else {
-        //     // Append a message to the admin message indicating the customer's phone number is not on WhatsApp
-        //     $admin_message .= "\n\n*_PS: Le numéro du client n'a pas WhatsApp ; vous feriez mieux de l'appeler._*";
-        // }
+        // Check if the customer's phone number is registered on WhatsApp
+        if (WhatsAppMessenger::check_number($customer_phone)) {
+            // Send a WhatsApp message to the customer about the new order
+            $this->whatsapp->send_message(render('customer_order_message', $payload), $customer_phone);
+        } else {
+            // Append a message to the admin message indicating the customer's phone number is not on WhatsApp
+            $admin_message .= "\n\n*_PS: Le numéro du client n'a pas WhatsApp ; vous feriez mieux de l'appeler._*";
+        }
 
-        // // Send a WhatsApp message to the admins about the new order
-        // $this->whatsapp->send_message($admin_message, explode(",", env()->admins));
+        // Send a WhatsApp message to the admins about the new order
+        $this->whatsapp->send_message($admin_message, explode(",", env()->admins));
 
         // Store the payload in the Google Sheets spreadsheet
         $this->store($payload);
@@ -205,25 +205,25 @@ final class Application
         // Format the product names and add them to the payload
         $payload['product_names'] = formate(product_names($payload['product_names']));
 
-        // // Render the admin messages
-        // $admin_message = render('admin_cart_message', $payload);
+        // Render the admin messages
+        $admin_message = render('admin_cart_message', $payload);
 
-        // if (WhatsAppMessenger::check_number($customer_phone)) {
-        //     $user_message = render('customer_cart_message', $payload);
+        if (WhatsAppMessenger::check_number($customer_phone)) {
+            $user_message = render('customer_cart_message', $payload);
     
-        //     // Send a WhatsApp message to the customer about the abandoned cart
-        //     $this->whatsapp->send_message($user_message, $customer_phone);
-        //     // Send a scheduled message to the customer about the abandoned cart
-        //     $this->whatsapp->send_schaduler($user_message, $customer_phone, intervals());
-        // } else {
-        //     // Append a message to the admin message indicating the customer's phone number is not on WhatsApp
-        //     $admin_message .= 
-        //         "\n\n*_PS: Le numéro du client ". 
-        //         (strlen($customer_phone) === 13 ? "n'a pas WhatsApp ; vous feriez mieux de l'appeler" : "est invalide") . "._*";
-        // }
+            // Send a WhatsApp message to the customer about the abandoned cart
+            $this->whatsapp->send_message($user_message, $customer_phone);
+            // Send a scheduled message to the customer about the abandoned cart
+            $this->whatsapp->send_schaduler($user_message, $customer_phone, intervals());
+        } else {
+            // Append a message to the admin message indicating the customer's phone number is not on WhatsApp
+            $admin_message .= 
+                "\n\n*_PS: Le numéro du client ". 
+                (strlen($customer_phone) === 13 ? "n'a pas WhatsApp ; vous feriez mieux de l'appeler" : "est invalide") . "._*";
+        }
         
-        // // Send a WhatsApp message to the admins about the abandoned cart
-        // $this->whatsapp->send_message($admin_message, explode(",", env()->admins));
+        // Send a WhatsApp message to the admins about the abandoned cart
+        $this->whatsapp->send_message($admin_message, explode(",", env()->admins));
         
         // Store the payload in the Google Sheets spreadsheet
         $this->store($payload);

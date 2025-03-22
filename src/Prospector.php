@@ -63,7 +63,7 @@ final class Prospector
         return [
             'lower_bound'    => $this->google_sheet->last_row_num(), // Get the last row number from Google Sheets
             'customer_count' => 1, // Generate a random customer count between 3 and 6
-            'upper_bound'    => random_int(0, 150), // Generate a random upper bound between 0 and 100
+            'upper_bound'    => random_int(0, 300), // Generate a random upper bound between 0 and 300
         ];
     }
 

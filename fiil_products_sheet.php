@@ -10,4 +10,4 @@ require 'vendor/autoload.php';
 use WoowaWebhooks\Prospector;
 
 // Create an instance of the Prospector class and call the fill_products_sheets method
-$prospector = (new Prospector())->fill_products_sheets(172);
+$prospector = (new Prospector())->fill_products_sheets(177);

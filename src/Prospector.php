@@ -121,6 +121,8 @@ final class Prospector
             'product_link'  => $message_info[2], // Extract the product link
         ];
 
+        echo debug($payload);
+        echo debug($prospects_info);
         
         foreach ($prospects_info as $prospect_info) {
             $phone_number = $prospect_info[2]; // Extract the phone number from the prospect info

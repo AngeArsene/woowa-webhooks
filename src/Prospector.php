@@ -78,7 +78,7 @@ final class Prospector
         $prospects = [];
 
         foreach ($ranges as $range) {
-            $prospects[] = $this->google_sheet->read("A$range:C$range"); // Read data from Google Sheets for the given range
+            $prospects[] = $this->google_sheet->read("A$range:D$range"); // Read data from Google Sheets for the given range
         }
 
         return [flatten_array($prospects)];
@@ -121,7 +121,7 @@ final class Prospector
             'product_link'  => $message_info[2], // Extract the product link
         ];
 
-        echo debug($payload);
+        // echo debug($payload);
         echo debug($prospects_info);
         
         foreach ($prospects_info as $prospect_info) {

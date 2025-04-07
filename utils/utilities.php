@@ -194,20 +194,20 @@ function flatten_array(array $array): array
 }
 
 /**
- * Checks if a given date is exactly 7 days in the past.
+ * Checks if a given date is 7 days in the past or more.
  *
  * @param string $date The date in d/m/y format.
- * @return bool True if the date is 7 days in the past, false otherwise.
+ * @return bool True if the date is 7 days in the past or more, false otherwise.
  */
-function is_seven_days_before(string $date): bool
+function is_seven_days_before(string $date = ''): bool
 {
-    $input_date = DateTime::createFromFormat('d/m/y', $date);
+    $input_date = DateTime::createFromFormat('m/d/Y', $date);
     if (!$input_date) {
-        return false; // Invalid date format
+        return true; // Invalid date format
     }
 
     $now = new DateTime('now', new DateTimeZone('UTC'));
     $seven_days_ago = $now->modify('-7 days');
 
-    return $input_date->format('Y-m-d') === $seven_days_ago->format('Y-m-d');
+    return $input_date <= $seven_days_ago;
 }

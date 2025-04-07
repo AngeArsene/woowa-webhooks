@@ -78,7 +78,7 @@ final class Prospector
         $prospects = [];
 
         foreach ($ranges as $range) {
-            $prospects[] = $this->google_sheet->read("A$range:D$range"); // Read data from Google Sheets for the given range
+            $prospects[] = $this->google_sheet->read("A$range:D$range") + ['range' => $range]; // Read data from Google Sheets for the given range
         }
 
         return [flatten_array($prospects)];
@@ -125,8 +125,10 @@ final class Prospector
         echo debug($prospects_info);
         
         foreach ($prospects_info as $prospect_info) {
-            if (is_seven_days_before($prospect_info[3])) {
+            if (is_seven_days_before($prospect_info[3] ?? "")) {
                 $phone_number = $prospect_info[2]; // Extract the phone number from the prospect info
+
+                $this->google_sheet->update([date('m/d/Y')], 'D'.$prospect_info[4]); // Update the Google Sheets with the prospect info
                 
                 // Send a French prospection message to the prospect
                 $this->whatsapp->send_message(

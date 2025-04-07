@@ -63,7 +63,7 @@ final class Prospector
         return [
             'lower_bound'    => $this->google_sheet->last_row_num(), // Get the last row number from Google Sheets
             'customer_count' => 1, // Generate a random customer count between 3 and 6
-            'upper_bound'    => random_int(0, 300), // Generate a random upper bound between 0 and 300
+            'upper_bound'    => 300, // Generate a random upper bound between 0 and 300
         ];
     }
 
@@ -121,25 +121,27 @@ final class Prospector
             'product_link'  => $message_info[2], // Extract the product link
         ];
 
-        // echo debug($payload);
+        echo debug($payload);
         echo debug($prospects_info);
         
         foreach ($prospects_info as $prospect_info) {
-            $phone_number = $prospect_info[2]; // Extract the phone number from the prospect info
-            
-            // Send a French prospection message to the prospect
-            $this->whatsapp->send_message(
-                render(
-                    'fr_prospection_message', array_merge($payload, ['first_name' => $prospect_info[0]]) // Merge payload with the prospect's first name
-                ), $phone_number, $message_info[3]
-            );
-
-            // Send an English prospection message to the prospect
-            $this->whatsapp->send_message(
-                render(
-                    'en_prospection_message', array_merge($payload, ['first_name' => $prospect_info[0]]) // Merge payload with the prospect's first name
-                ), $phone_number, $message_info[3]
-            );
+            if (is_seven_days_before($prospect_info[3])) {
+                $phone_number = $prospect_info[2]; // Extract the phone number from the prospect info
+                
+                // Send a French prospection message to the prospect
+                $this->whatsapp->send_message(
+                    render(
+                        'fr_prospection_message', array_merge($payload, ['first_name' => $prospect_info[0]]) // Merge payload with the prospect's first name
+                    ), $phone_number, $message_info[3]
+                );
+    
+                // Send an English prospection message to the prospect
+                $this->whatsapp->send_message(
+                    render(
+                        'en_prospection_message', array_merge($payload, ['first_name' => $prospect_info[0]]) // Merge payload with the prospect's first name
+                    ), $phone_number, $message_info[3]
+                );
+            }
         }
 
         error_log(debug($payload));

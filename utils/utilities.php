@@ -207,7 +207,7 @@ function is_seven_days_before(string $date = ''): bool
     }
 
     $now = new DateTime('now', new DateTimeZone('UTC'));
-    $seven_days_ago = $now->modify('-7 days');
+    $seven_days_ago = $now->modify('-3 days');
 
     return $input_date <= $seven_days_ago;
 }

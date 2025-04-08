@@ -152,21 +152,25 @@ final class Prospector
     /**
      * Fills a spreadsheet with product data from a specified WooCommerce category.
      *
-     * @param ?string $category_name The name of the product category to retrieve. Defaults to 'Smartphones'.
+     * @param ?int $category_id The ID of the product category to retrieve.
      *
      * @return void
      */
-    public function fill_products_sheets (?int $category_id): void
+    public function fill_products_sheets(null|int|string $category_id): void
     {
-        // Retrieve products in the specified category
-        $products = $this->woocommerce->api_client->get('products', ['category' => $category_id]);
-        foreach ($products as $product) {
-            var_dump([
-                $product->name, $product->price, $product->permalink, $product->images[0]->src
-            ]);
-            $this->spreadsheet->append_row([
-                $product->name, $product->price, $product->permalink, $product->images[0]->src
-            ]);
+        $page = 1;
+        $per_page = 100;
+
+        while ($products = $this->woocommerce->api_client->get('products', [
+            'category' => $category_id,
+            'per_page' => $per_page,
+            'page' => $page++
+        ])) {
+            foreach ($products as $product) {
+                $data = [$product->name, $product->price, $product->permalink, $product->images[0]->src];
+                var_dump($data);
+                $this->spreadsheet->append_row($data);
+            }
         }
     }
 }

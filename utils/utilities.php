@@ -48,7 +48,23 @@ function cart_phone_number(string $cart_url) : ?string
 function get_phone_number(array $payload): string
 {
     $phone_number =  $payload['phone_number'] ?? ($payload['phone'] ?? cart_phone_number($payload['checkout_url']));
+
+    return sanitize_phone_number($phone_number);
+}
+
+/**
+ * Sanitizes a phone number by removing non-digit characters and ensuring it includes the country code for Cameroon (+237).
+ *
+ * @param string $phone_number The phone number to sanitize.
+ * @return string The sanitized phone number.
+ */
+function sanitize_phone_number(string $phone_number): string
+{
+    // Remove any non-digit characters from the phone number
+    $phone_number = preg_replace('/[^\d+]/', '', $phone_number);
+    
     $phone_number = strpos($phone_number, '+237') === false ? '+237'.$phone_number : $phone_number;
+
     return str_replace(' ', '', $phone_number);
 }
 

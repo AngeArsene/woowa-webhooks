@@ -126,7 +126,7 @@ final class Prospector
         
         foreach ($prospects_info as $prospect_info) {
             if (is_seven_days_before($prospect_info[3] ?? "")) {
-                $phone_number = $prospect_info[2]; // Extract the phone number from the prospect info
+                $phone_number = sanitize_phone_number($prospect_info[2]); // Extract the phone number from the prospect info
 
                 $this->google_sheet->update([date('m/d/Y')], 'D'.$prospect_info[4]); // Update the Google Sheets with the prospect info
                 

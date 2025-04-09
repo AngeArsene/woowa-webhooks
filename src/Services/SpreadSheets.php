@@ -157,7 +157,7 @@ final class Spreadsheets
             throw new Exception("No data rows available in the spreadsheet.");
         }
 
-        $randomIndex = rand(2, $totalRows); // Choose a random row (assuming 1-based index)
+        $randomIndex = random_int(2, $totalRows); // Choose a random row (assuming 1-based index)
         
         return $this->read_row($randomIndex); // Read only the random row
     }

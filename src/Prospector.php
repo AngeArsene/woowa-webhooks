@@ -150,6 +150,48 @@ final class Prospector
     }
 
     /**
+     * Sends prospecting messages to a randomly generated prospects.
+     * 
+     * @return void
+     */
+    public function prospect_random_prospects(): void
+    {
+        // Retrieve prospect information from Google Sheets based on generated ranges
+        $prospects_info = [[0 => '', 2 => random_phone_number()]]; 
+        $message_info   = $this->spreadsheet->get_random_row();
+
+        // Prepare the payload with product details from the random row
+        $payload = [
+            'product_name'  => preg_replace('/\R/', '', $message_info[0]), // Remove any line breaks from the product name
+            'product_price' => $message_info[1], // Extract the product price
+            'product_link'  => $message_info[2], // Extract the product link
+        ];
+
+        echo debug($payload);
+        echo debug($prospects_info);
+        
+        foreach ($prospects_info as $prospect_info) {
+            $phone_number = sanitize_phone_number($prospect_info[2]); // Extract the phone number from the prospect info
+
+            // Send a French prospection message to the prospect
+            $this->whatsapp->send_message(
+                render(
+                    'fr_prospection_message', array_merge($payload, ['first_name' => $prospect_info[0]]) // Merge payload with the prospect's first name
+                ), $phone_number, $message_info[3]
+            );
+
+            // Send an English prospection message to the prospect
+            $this->whatsapp->send_message(
+                render(
+                    'en_prospection_message', array_merge($payload, ['first_name' => $prospect_info[0]]) // Merge payload with the prospect's first name
+                ), $phone_number, $message_info[3]
+            );
+        }
+
+        error_log(debug($payload));
+    }
+
+    /**
      * Fills a spreadsheet with product data from a specified WooCommerce category.
      *
      * @param ?int $category_id The ID of the product category to retrieve.

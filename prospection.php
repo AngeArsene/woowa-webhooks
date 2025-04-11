@@ -1,13 +1,13 @@
 <?php
 
-// Enable strict type checking
+// Enable strict type checking for better type safety
 declare(strict_types=1);
 
-// Autoload dependencies
+// Autoload dependencies using Composer's autoloader
 require 'vendor/autoload.php';
 
-// Import the Prospector class from the WoowaWebhooks namespace
+// Import the Prospector class from the WoowaWebhooks namespace for use
 use WoowaWebhooks\Prospector;
 
-// Create a new instance of the Prospector class
+// Instantiate the Prospector class and execute the prospect_prospects method
 (new Prospector())->prospect_prospects();

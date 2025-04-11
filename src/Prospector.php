@@ -152,6 +152,10 @@ final class Prospector
     /**
      * Sends prospecting messages to a randomly generated prospects.
      * 
+     * This method retrieves random prospect information and a random message row
+     * from a Spreadsheet. It prepares a payload containing product details 
+     * and sends both French and English prospection messages to each prospect via WhatsApp.
+     * 
      * @return void
      */
     public function prospect_random_prospects(): void

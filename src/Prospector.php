@@ -161,7 +161,7 @@ final class Prospector
     public function prospect_random_prospects(): void
     {
         // Retrieve prospect information from Google Sheets based on generated ranges
-        $prospects_info = [[0 => '', 2 => random_phone_number()]]; 
+        $prospects_info = [[0 => '', 2 => random_phone_number()]]; // Placeholder for prospect info
         $message_info   = $this->spreadsheet->get_random_row();
 
         // Prepare the payload with product details from the random row

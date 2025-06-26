@@ -183,7 +183,6 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 
 - `tests/`: Contains all test files.
   - `DateUtilitiesTest.php`: Unit tests for date utility functions.
-  - *(add more test files as needed)*
 
 ### Running Tests
 

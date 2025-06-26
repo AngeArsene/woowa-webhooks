@@ -177,6 +177,24 @@ Integrate WhatsApp order notifications into your WooCommerce store with this pac
 - **jakarta_date()**: Gets a future date and time in Jakarta timezone.
 - **intervals()**: Retrieves the intervals for sending scheduled messages.
 
+## Testing
+
+### Test Directory Structure
+
+- `tests/`: Contains all test files.
+  - `DateUtilitiesTest.php`: Unit tests for date utility functions.
+  - *(add more test files as needed)*
+
+### Running Tests
+
+To run the test suite, use the following command from the project root:
+
+```sh
+vendor\bin\phpunit tests\ --colors --stop-on-failure
+```
+
+This will execute all tests in the `tests/` directory, display colored output, and stop on the first failure.
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

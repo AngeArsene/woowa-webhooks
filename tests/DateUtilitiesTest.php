@@ -16,7 +16,7 @@ final class DateUtilitiesTest extends TestCase
      *
      * @return void
      */
-    public function testIfDateSevenDaysBefore(): void
+    public function testIsDateSevenDaysBefore(): void
     {
         $date         = date('m/d/Y', strtotime('-7 days'));
         $further_date = date('m/d/Y', strtotime('-8 days'));

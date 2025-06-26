@@ -5,6 +5,8 @@ namespace WoowaWebhooks\Tests;
 use DateTime;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
+use WoowaWebhooks\Application;
+
 use function jakarta_date;
 use function is_seven_days_before;
 
@@ -46,5 +48,23 @@ final class DateUtilitiesTest extends TestCase
 
         $this->assertEquals($date, jakarta_date($time_offset));
         $this->assertNotEquals($date, jakarta_date('tomorrow'));
+    }
+
+    /**
+     * Tests the intervals function to ensure it returns the correct
+     * array of formatted Jakarta date intervals based on environment configuration.
+     *
+     * @return void
+     */
+    public function testIntervals(): void
+    {
+        Application::init_env();
+
+        $app_ca_intervals = array_map(
+            fn ($interval) => 
+            jakarta_date($interval), explode(", ", env()->ca_intervals)
+        );
+
+        $this->assertEquals($app_ca_intervals, intervals());
     }
 }

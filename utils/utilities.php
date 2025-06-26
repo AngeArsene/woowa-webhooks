@@ -217,13 +217,9 @@ function flatten_array(array $array): array
  */
 function is_seven_days_before(string $date = ''): bool
 {
-    $input_date = DateTime::createFromFormat(
-        'm/d/Y', str_replace("'", '', $date)
-    );
+    $input_date = DateTime::createFromFormat('m/d/Y', str_replace("'", '', $date));
 
-    if (!$input_date) {
-        return true; // Invalid date format
-    }
+    if (!$input_date) return true; // Invalid date format
 
     $now = new DateTime('now', new DateTimeZone('UTC'));
     $seven_days_ago = $now->modify('-3 days');

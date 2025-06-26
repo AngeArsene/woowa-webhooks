@@ -17,7 +17,8 @@
             "utils/utilities.php"
         ],
         "psr-4": {
-            "WoowaWebhooks\\": "src/"
+            "WoowaWebhooks\\": "src/",
+            "WoowaWebhooks\\Tests": "tests/"
         }
     },
     "authors": [

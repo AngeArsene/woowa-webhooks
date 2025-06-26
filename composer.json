@@ -26,5 +26,8 @@
             "email": "nkenmandenga@gmail.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "require-dev": {
+        "phpunit/phpunit": "^12.3@dev"
+    }
 }

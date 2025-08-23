@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @param array|null $variables The variables to replace in the template.
  * @return string The rendered template.
  */
-function render (string $template, ?array $variables = []): string
+function render (string $template, ?array &$variables = []): string
 {
     ob_start();
     require_once __DIR__."/../templates/{$template}.txt";
@@ -23,11 +23,12 @@ function render (string $template, ?array $variables = []): string
  * @param array|null $variables The variables to replace in the template.
  * @return string The template with placeholders replaced.
  */
-function replace_placeholders(string $template, ?array $variables = [])
+function replace_placeholders(string $template, ?array &$variables = [])
 {
     foreach ($variables as $key => $value) {
         if (is_array($value)) {
             $value = count($value) > 1 ? $value = implode(" / ", $value) : $value[0];
+            $variables[$key] = $value;
         }
         $template = str_replace("[$key]", "$value", $template);
     }

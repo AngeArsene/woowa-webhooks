@@ -20,7 +20,5 @@ function env (): object
  */
 function debug (mixed $payload): string
 {
-    ob_start();
-    var_dump($payload);
-    return ob_get_clean();
+    return json_encode($payload, JSON_PRETTY_PRINT);
 }

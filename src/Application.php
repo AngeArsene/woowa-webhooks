@@ -63,7 +63,7 @@ final class Application
         $this->whatsapp = new WhatsAppMessenger();
 
         // Retrieve the payload from the specified file and handle it
-        $this->handle($this->get_payload('ac_payload.json'));
+        $this->handle($this->get_payload('order_payload.json'));
     }
 
     /**
@@ -169,13 +169,14 @@ final class Application
         $payload = NewOrderCollection::filter($payload);
 
         // Retrieve the customer's phone number.
-        $customer_phone = $payload['phone_number'] = get_phone_number($payload);
+        $payload['phone_number'] = get_phone_number($payload);
+        $customer_phone = WhatsAppMessenger::check_number($payload['phone_number']);
 
         // Render the admin message template with the payload data
         $admin_message = render('admin_order_message', $payload);
 
         // Check if the customer's phone number is registered on WhatsApp
-        if (WhatsAppMessenger::check_number($customer_phone)) {
+        if ($customer_phone) {
             // Send a WhatsApp message to the customer about the new order
             $this->whatsapp->send_message(render('customer_order_message', $payload), $customer_phone);
         } else {

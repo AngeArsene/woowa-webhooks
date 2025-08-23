@@ -110,32 +110,52 @@ final class WhatsAppMessenger implements MessageHandler
      *
      * @param string $url The URL to send the request to.
      * @param string $message The message to send.
-     * @param string $to The recipient's phone number.
+     * @param string|array $to The recipient's phone number.
      * @param array|null $data Additional data to include in the request.
      * @return void
      * @throws MessagingException If the request fails.
      */
-    private function send_request(string $url, string $message, string $to, ?array $data = null): void
+    private function send_request(string $url, string $message, string | array $to, ?array $data = null): void
     {
-        // Combine base parameters with additional data
-        $body = $this->base_params($message, $to) + (array) $data;
+        $to = is_string($to) ? [$to] : $to;
 
-        // Send the request using the HTTP client
-        $request = $this->request->send('post', $url, $body);
+        foreach ($to as $recipient) {
+            // Combine base parameters with additional data
+            $body = $this->base_params($message, $recipient) + (array) $data;
 
-        // Throw an exception if the request fails
-        if ($request !== true) throw new MessagingException($request);
+            // Send the request using the HTTP client
+            $request = $this->request->send('post', $url, $body);
+
+            // Throw an exception if the request fails
+            if ($request !== true) throw new MessagingException($request);
+        }
     }
 
     /**
      * Checks if the given phone number is a whatsapp number.
      *
-     * @param string $phone_number The phone number to check.
-     * @return bool Returns true if the phone number is valid, false otherwise.
+     * @param string|string[] $phone_number The phone number to check.
+     * @return string|string[] Returns true if the phone number is valid, false otherwise.
      */
-    public static function check_number(string $phone_number): bool
+    public static function check_number(string|array $phone_number): string | array
     {
+        if (is_array($phone_number)) {
+            return array_filter($phone_number, function ($number) {
+                return self::check_number_exists($number);
+            });
+        }
         // Implement checking if a phone number is valid using WhatsApp
+        return self::check_number_exists($phone_number) ? $phone_number : '';
+    }
+
+    /**
+     * Checks if a phone number exists on WhatsApp.
+     *
+     * @param string $phone_number The phone number to check.
+     * @return bool True if the phone number exists on WhatsApp, false otherwise.
+     */
+    private static function check_number_exists(string $phone_number): bool
+    {
         return (new self())->request->send(
             'post', "check_number", ['phone_no' => $phone_number, 'key' => env()->api_key]
         ) === true;

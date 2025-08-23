@@ -200,7 +200,8 @@ final class Application
     private function process_abandoned_cart(array $payload): void
     {
         // Retrieves the customer's phone number.
-        $customer_phone = $payload['phone_number'] = get_phone_number($payload);
+        $payload['phone_number'] = get_phone_number($payload);
+        $customer_phone = WhatsAppMessenger::check_number($payload['phone_number']);
 
         // Format the product names and add them to the payload
         $payload['product_names'] = formate(product_names($payload['product_names']));
@@ -208,7 +209,7 @@ final class Application
         // Render the admin messages
         $admin_message = render('admin_cart_message', $payload);
 
-        if (WhatsAppMessenger::check_number($customer_phone)) {
+        if ($customer_phone) {
             $user_message = render('customer_cart_message', $payload);
     
             // Send a WhatsApp message to the customer about the abandoned cart
@@ -216,10 +217,9 @@ final class Application
             // Send a scheduled message to the customer about the abandoned cart
             $this->whatsapp->send_schaduler($user_message, $customer_phone, intervals());
         } else {
-            // Append a message to the admin message indicating the customer's phone number is not on WhatsApp
+            // Append a message to the admin message indicating the customer's phone number is either not on WhatsApp or is invalid.
             $admin_message .= 
-                "\n\n*_PS: Le numéro du client ". 
-                (strlen($customer_phone) === 13 ? "n'a pas WhatsApp ; vous feriez mieux de l'appeler" : "est invalide") . "._*";
+                "\n\n*_PS: Le numéro du client n'a pas WhatsApp ou est invalide._*";
         }
         
         // Send a WhatsApp message to the admins about the abandoned cart

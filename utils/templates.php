@@ -26,6 +26,9 @@ function render (string $template, ?array $variables = []): string
 function replace_placeholders(string $template, ?array $variables = [])
 {
     foreach ($variables as $key => $value) {
+        if (is_array($value)) {
+            $value = count($value) > 1 ? $value = implode(" / ", $value) : $value[0];
+        }
         $template = str_replace("[$key]", "$value", $template);
     }
     return $template;

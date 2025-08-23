@@ -41,19 +41,36 @@ function cart_phone_number(string $cart_url) : ?string
  * Retrieves the phone number from the payload or cart URL.
  *
  * @param array $payload The payload containing the phone number or cart URL.
- * @return string The formatted phone number.
+ * @return string|string[] The formatted phone number or an array of formatted phone numbers.
  */
-function get_phone_number(array $payload): string
+function get_phone_number(array $payload): string | array
 {
-    // E.164 regex (max 15 digits)
-    $regex = '/^\+([1-9]{1,3})(\d{4,14})$/';
-
     // Extract phone
     $number = $payload['phone_number']
         ?? ($payload['phone'] ?? cart_phone_number($payload['checkout_url']));
 
     // Clean unwanted chars
     $number = preg_replace('/[\s\-\(\)]/', '', $number);
+
+    // Handle multiple numbers
+    $number = contains($number, '/') ? explode('/', $number) : $number;
+
+    // If it's an array, format each number and return the array
+    return is_array($number) ?
+        array_map(fn($num) => format_phone_number($num), $number) :
+        format_phone_number($number);
+}
+
+/**
+ * Formats a phone number string into a standardized format.
+ *
+ * @param string $number The phone number to format.
+ * @return string The formatted phone number.
+ */
+function format_phone_number(string $number): string
+{
+    // E.164 regex (max 15 digits)
+    $regex = '/^\+([1-9]{1,3})(\d{4,14})$/';
 
     // Case 1: Already valid E.164
     if (preg_match($regex, $number)) {
@@ -79,6 +96,18 @@ function get_phone_number(array $payload): string
     // Case 4: Default fallback Cameroon
     $number = '+237' . ltrim($number, '0');
     return preg_match($regex, $number) ? $number : $number;
+}
+
+/**
+ * Checks if a character is found within a string.
+ *
+ * @param string $char The character to search for.
+ * @param string $string The string to search in.
+ * @return bool True if the character is found, false otherwise.
+ */
+function contains(string $string, string $char): bool
+{
+    return strpos($string, $char) !== false;
 }
 
 /**

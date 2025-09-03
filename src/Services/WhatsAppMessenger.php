@@ -140,7 +140,7 @@ final class WhatsAppMessenger implements MessageHandler
      * @param string $phone_number The phone number to check.
      * @return bool True if the phone number exists on WhatsApp, false otherwise.
      */
-    private static function check_number_exists(string $phone_number): bool
+    public static function check_number_exists(string $phone_number): bool
     {
         return (new self())->request->send(
             'post', "check_number", ['phone_no' => $phone_number, 'key' => env()->api_key]

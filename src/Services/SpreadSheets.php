@@ -105,7 +105,7 @@ final class Spreadsheets
      */
     public function edit_row (int $row_num, array $newData): void
     {
-        if (!($row_num <= 2 || $row_num > $this->sheet->getHighestRow())) {
+        if (!($row_num <= 1 || $row_num > $this->sheet->getHighestRow())) {
             $col = 'A';
             foreach ($newData as $cell) {
                 $this->sheet->setCellValue($col . $row_num, $cell);
@@ -180,6 +180,16 @@ final class Spreadsheets
         }
     
         return $rowData;
+    }
+
+    /**
+     * Get the last row number in the spreadsheet.
+     *
+     * @return int The last row number.
+     */
+    public function last_row_num(): int
+    {
+        return $this->sheet->getHighestRow();
     }
     
     /**

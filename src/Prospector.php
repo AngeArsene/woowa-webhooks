@@ -7,8 +7,8 @@ namespace WoowaWebhooks;
 use Automattic\WooCommerce\Client;
 use WoowaWebhooks\Services\Spreadsheets;
 use WoowaWebhooks\Services\GoogleSheets;
-use WoowaWebhooks\Services\WhatsAppMessenger;
 use WoowaWebhooks\Services\WooCommerceApi;
+use WoowaWebhooks\Services\WhatsAppMessenger;
 
 /**
  * Class Prospector

@@ -22,7 +22,7 @@ class ExcelWhatsAppVerifier
 
     public function verifyPhoneNumbers(): void
     {
-        for ($i = 2; $i < $this->spreadsheet->last_row_num(); $i++) {
+        for ($i = 2; $i <= $this->spreadsheet->last_row_num(); $i++) {
             $row = $this->spreadsheet->read_row($i);
             $phone_number = str_replace(" ", "", $row[1]);
 

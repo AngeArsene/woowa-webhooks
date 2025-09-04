@@ -52,12 +52,13 @@ final class Spreadsheets
      * Each element of the data array is placed in consecutive columns starting from column A.
      *
      * @param array $data The data to add.
+     * @param bool $first If true, adds the row as the first row (headers).
      *
      * @return void
      */
-    public function append_row (array $data): void
+    public function append_row (array $data, ?bool $first = false): void
     {
-        $lastRow = $this->sheet->getHighestRow() + 1;
+        $lastRow = $this->sheet->getHighestRow() + (int) !$first;
         $col = 'A';
 
         foreach ($data as $cell) {
@@ -191,7 +192,54 @@ final class Spreadsheets
     {
         return $this->sheet->getHighestRow();
     }
-    
+
+    /**
+     * Centers the content of a given row.
+     *
+     * @param int $rowNum The row number to center.
+     * @return void
+     */
+    public function center_row(int $rowNum): void
+    {
+        $highestColumn = $this->sheet->getHighestColumn();
+        $this->sheet->getStyle("A{$rowNum}:{$highestColumn}{$rowNum}")
+            ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+        $this->save();
+    }
+
+    /**
+     * Sets the background color of a given row.
+     *
+     * @param int $rowNum The row number to style.
+     * @param string $color The hex color code (e.g., 'FFFF00' for yellow).
+     * @return void
+     */
+    public function set_row_background(int $rowNum, string $color): void
+    {
+        $highestColumn = $this->sheet->getHighestColumn();
+        $this->sheet->getStyle("A{$rowNum}:{$highestColumn}{$rowNum}")
+            ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+            ->getStartColor()->setRGB($color);
+
+        $this->save();
+    }
+
+    /**
+     * Makes the content of a given row bold.
+     *
+     * @param int $rowNum The row number to style.
+     * @return void
+     */
+    public function bold_row(int $rowNum): void
+    {
+        $highestColumn = $this->sheet->getHighestColumn();
+        $this->sheet->getStyle("A{$rowNum}:{$highestColumn}{$rowNum}")
+            ->getFont()->setBold(true);
+
+        $this->save();
+    }
+
     /**
      * Save the current state of the spreadsheet.
      *

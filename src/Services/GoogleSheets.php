@@ -30,9 +30,9 @@ final class GoogleSheets
     private Sheets $google_sheets;
 
     /**
-     * @const string SPREADSHEET_ID The ID of the Google Spreadsheet
+     * @var string $spreadsheet_id The ID of the Google Spreadsheet
      */
-    private const SPREADSHEET_ID = '1W5Uzf6R0s58oMCVcUlFJfnw0dA6Bza2L_qD5Q2ZTERE';
+    private string $spreadsheet_id;
 
     /**
      * GoogleSheets constructor.
@@ -41,6 +41,8 @@ final class GoogleSheets
     public function __construct()
     {
         $this->bootstrap(); // Initialize the Google client
+
+        $this->spreadsheet_id = env()->google_spreadsheet_id;
 
         $this->google_sheets = new Sheets($this->google_client); // Create a new Sheets service instance
     }
@@ -60,6 +62,8 @@ final class GoogleSheets
 
         $this->google_client->setAuthConfig($file_path); // Set the authentication configuration
         $this->google_client->setAccessType('online'); // Set the access type
+
+        Application::init_env(); // Initialize environment variables
     }
 
     /**
@@ -70,7 +74,7 @@ final class GoogleSheets
      */
     public function read(string $range): array
     {
-        $response = $this->google_sheets->spreadsheets_values->get(self::SPREADSHEET_ID, 'Sheet1!' . $range); // Get the values from the specified range
+        $response = $this->google_sheets->spreadsheets_values->get($this->spreadsheet_id, 'Sheet1!' . $range); // Get the values from the specified range
         return empty($response->getValues()) ? [] : $response->getValues(); // Return the values
     }
 
@@ -90,7 +94,7 @@ final class GoogleSheets
             $params = ['valueInputOption' => 'RAW'];
 
             $this->google_sheets->spreadsheets_values->{$name}(
-                self::SPREADSHEET_ID,
+                $this->spreadsheet_id,
                 "Sheet1" . ($name === 'update' ? '!' : '') . ($arguments[1] ?? null),
                 $body,
                 $params

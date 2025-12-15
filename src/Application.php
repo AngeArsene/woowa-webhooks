@@ -78,13 +78,15 @@ final class Application
      */
     public static function init_env(): void
     {
-        $env_dir = realpath(Application::ENV_DIR)
-            ? Application::ENV_DIR
-            : Application::HOME_DIR;
-
-        // Create a Dotenv instance and load environment variables
-        $dotenv = Dotenv::createImmutable($env_dir);
-        $dotenv->load();
+        if (empty($_ENV)) {
+            $env_dir = realpath(Application::ENV_DIR)
+                ? Application::ENV_DIR
+                : Application::HOME_DIR;
+    
+            // Create a Dotenv instance and load environment variables
+            $dotenv = Dotenv::createImmutable($env_dir);
+            $dotenv->load();
+        }
     }
 
     /**

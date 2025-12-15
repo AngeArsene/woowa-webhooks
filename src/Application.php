@@ -63,7 +63,7 @@ final class Application
         $this->whatsapp = new WhatsAppMessenger();
 
         // Retrieve the payload from the specified file and handle it
-        $this->handle($this->get_payload('order_payload.json'));
+        $this->handle($this->get_payload());
     }
 
     /**

@@ -256,7 +256,9 @@ final class Application
         // Initialize WooCommerceApi, GoogleSheets and Spreadsheets instance 
         $this->woocommerce  = new WooCommerceApi();
         $this->google_sheet = new GoogleSheets();
-        $this->spreadsheet  = new Spreadsheets();
+        $this->spreadsheet  = new Spreadsheets(realpath(Application::ENV_DIR)
+            ? Application::ENV_DIR . '/data.xlsx'
+            : Application::HOME_DIR . 'files/data.xlsx');
 
         switch ($this->status) {
             case 'abandoned':

@@ -21,7 +21,7 @@ final class Application
     /**
      * The home directory of the application.
      */
-    public const HOME_DIR = __DIR__.'/../';
+    public const HOME_DIR = __DIR__ . '/../';
 
     /**
      * Instance of WhatsAppMessenger for sending messages.
@@ -73,15 +73,14 @@ final class Application
      */
     public static function init_env(): void
     {
-        $env_dir = '';
-        
-        // Determine the directory for environment variables
-        if (is_dir(self::HOME_DIR . '../../woowa_credentials/')) {
-            $env_dir = self::HOME_DIR . '../../woowa_credentials/';
-        } else {
-            $env_dir = self::HOME_DIR;
-        }
+        $env_dir = self::HOME_DIR;
 
+        // Candidate external credentials directory
+        $externalDir = realpath(self::HOME_DIR . '/../../woowa_credentials');
+
+        if ($externalDir !== false && is_dir($externalDir)) {
+            $env_dir = $externalDir;
+        }
         // Create a Dotenv instance and load environment variables
         $dotenv = Dotenv::createImmutable($env_dir);
         $dotenv->load();
@@ -104,7 +103,7 @@ final class Application
 
         // Decode the JSON payload from the request body
         // If a file path is provided, read from that file; otherwise, read from php://input.
-        return json_decode(file_get_contents(empty($file) ? 'php://input' : self::HOME_DIR."/$file"), true);
+        return json_decode(file_get_contents(empty($file) ? 'php://input' : self::HOME_DIR . "/$file"), true);
     }
 
     /**
@@ -152,12 +151,12 @@ final class Application
                 // If the status is 'abandoned', process the abandoned cart
                 $this->process_abandoned_cart($payload);
                 break;
-            
+
             case 'processing':
                 // If the status is 'processing', process the order
                 $this->process_order($payload);
                 break;
-            
+
             default:
                 // For any other status, abort the processing
                 $this->abort();
@@ -221,20 +220,20 @@ final class Application
 
         if ($customer_phone) {
             $user_message = render('customer_cart_message', $payload);
-    
+
             // Send a WhatsApp message to the customer about the abandoned cart
             $this->whatsapp->send_message($user_message, $customer_phone);
             // Send a scheduled message to the customer about the abandoned cart
             $this->whatsapp->send_schaduler($user_message, $customer_phone, intervals());
         } else {
             // Append a message to the admin message indicating the customer's phone number is either not on WhatsApp or is invalid.
-            $admin_message .= 
+            $admin_message .=
                 "\n\n*_PS: Le numéro du client n'a pas WhatsApp ou est invalide._*";
         }
-        
+
         // Send a WhatsApp message to the admins about the abandoned cart
         $this->whatsapp->send_message($admin_message, explode(",", env()->admins));
-        
+
         // Store the payload in the Google Sheets spreadsheet
         $this->store($payload);
     }
@@ -246,7 +245,7 @@ final class Application
      *
      * @return void
      */
-    private function store (array $payload): void
+    private function store(array $payload): void
     {
         // Log the stored payload
         error_log(debug($payload));
@@ -260,12 +259,12 @@ final class Application
             case 'abandoned':
                 $this->cart_prospection($payload);
                 break;
-            
+
             case 'processing':
                 $this->new_order_prospection($payload);
                 break;
         }
-        
+
         // Store the payload in the Google Sheets spreadsheet
         $this->google_sheet->append([$payload['first_name'], $payload['last_name'], get_phone_number($payload)]);
     }
@@ -285,8 +284,8 @@ final class Application
 
         $this->spreadsheet->append_row([
             $product_name,
-            $product['price'] ?? $payload['cart_total'], 
-            $product['link'] ?? 'https://allready.cm/product/'.((new Slugify())->slugify($product_name)), 
+            $product['price'] ?? $payload['cart_total'],
+            $product['link'] ?? 'https://allready.cm/product/' . ((new Slugify())->slugify($product_name)),
             $product_image
         ]);
     }
@@ -298,7 +297,7 @@ final class Application
      *
      * @return void
      */
-    private function new_order_prospection (array $payload): void
+    private function new_order_prospection(array $payload): void
     {
         $product_name  = trim(explode(' - ', preg_split('/-{5,}/', $payload['product_names'])[0])[0]);
         $product       = $this->woocommerce->get_product_data($product_name);
@@ -306,9 +305,9 @@ final class Application
 
 
         $this->spreadsheet->append_row([
-            $product_name, 
-            $payload['product_price'] ?? $product['price'], 
-            $payload['product_link'] ?? $product['link'], 
+            $product_name,
+            $payload['product_price'] ?? $product['price'],
+            $payload['product_link'] ?? $product['link'],
             $product_image
         ]);
     }

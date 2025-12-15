@@ -73,6 +73,12 @@ final class Application
      */
     public static function init_env(): void
     {
+        if (is_dir(self::HOME_DIR . '../../woowa_credentials/')) {
+            $env_dir = self::HOME_DIR . '../../woowa_credentials/';
+        } else {
+            $env_dir = self::HOME_DIR
+        }
+
         // Create a Dotenv instance and load environment variables
         $dotenv = Dotenv::createImmutable(self::HOME_DIR);
         $dotenv->load();

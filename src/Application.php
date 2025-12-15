@@ -76,7 +76,7 @@ final class Application
         $env_dir = self::HOME_DIR;
 
         // Candidate external credentials directory
-        $externalDir = realpath(self::HOME_DIR . '/../../woowa_credentials');
+        $externalDir = realpath(self::HOME_DIR . '../../' . 'woowa_creadentials');
 
         if ($externalDir !== false && is_dir($externalDir)) {
             $env_dir = $externalDir;

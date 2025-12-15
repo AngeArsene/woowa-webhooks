@@ -24,6 +24,11 @@ final class Application
     public const HOME_DIR = __DIR__ . '/../';
 
     /**
+     * The production environment directory of the application.
+     */
+    public const ENV_DIR = self::HOME_DIR . '../../' . 'woowa_credentials';
+
+    /**
      * Instance of WhatsAppMessenger for sending messages.
      *
      * @var WhatsAppMessenger
@@ -76,7 +81,7 @@ final class Application
         $env_dir = self::HOME_DIR;
 
         // Candidate external credentials directory
-        $externalDir = realpath(self::HOME_DIR . '../../' . 'woowa_credentials');
+        $externalDir = realpath(self::ENV_DIR);
 
         if ($externalDir !== false && is_dir($externalDir)) {
             $env_dir = $externalDir;

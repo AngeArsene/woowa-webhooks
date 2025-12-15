@@ -17,7 +17,7 @@ use Google\Service\Sheets\ValueRange;
  * 
  * This class provides functionality to interact with Google Sheets API.
  */
-final class GoogleSheets 
+final class GoogleSheets
 {
     /**
      * @var Client $google_client Google API client
@@ -38,7 +38,7 @@ final class GoogleSheets
      * GoogleSheets constructor.
      * Initializes the Google Sheets service.
      */
-    public function __construct ()
+    public function __construct()
     {
         $this->bootstrap(); // Initialize the Google client
 
@@ -48,13 +48,15 @@ final class GoogleSheets
     /**
      * Initialize the Google client with necessary configurations.
      */
-    private function bootstrap (): void
+    private function bootstrap(): void
     {
         $this->google_client = new Client(); // Create a new Google client
         $this->google_client->setApplicationName("Google Sheets API PHP"); // Set the application name
         $this->google_client->setScopes([Sheets::SPREADSHEETS]); // Set the required scopes
 
-        $file_path = (realpath(Application::ENV_DIR) ? Application::ENV_DIR : Application::HOME_DIR) . '/credentials.json';
+        $file_path = (realpath(Application::ENV_DIR)
+            ? Application::ENV_DIR
+            : Application::HOME_DIR) . '/credentials.json';
 
         $this->google_client->setAuthConfig($file_path); // Set the authentication configuration
         $this->google_client->setAccessType('online'); // Set the access type
@@ -66,9 +68,9 @@ final class GoogleSheets
      * @param string $range The range of cells to read
      * @return array The values read from the specified range
      */
-    public function read (string $range): array
+    public function read(string $range): array
     {
-        $response = $this->google_sheets->spreadsheets_values->get(self::SPREADSHEET_ID, 'Sheet1!'.$range); // Get the values from the specified range
+        $response = $this->google_sheets->spreadsheets_values->get(self::SPREADSHEET_ID, 'Sheet1!' . $range); // Get the values from the specified range
         return empty($response->getValues()) ? [] : $response->getValues(); // Return the values
     }
 
@@ -86,9 +88,12 @@ final class GoogleSheets
         if ($name === 'update' || $name === 'append') {
             $body = new ValueRange(['values' => [$arguments[0]]]);
             $params = ['valueInputOption' => 'RAW'];
-            
+
             $this->google_sheets->spreadsheets_values->{$name}(
-                self::SPREADSHEET_ID, "Sheet1".($name === 'update' ? '!' : '').($arguments[1] ?? null), $body, $params
+                self::SPREADSHEET_ID,
+                "Sheet1" . ($name === 'update' ? '!' : '') . ($arguments[1] ?? null),
+                $body,
+                $params
             );
         } else {
             // Throw an exception if the method is not recognized
@@ -104,7 +109,7 @@ final class GoogleSheets
     public function last_row(): array
     {
         $values = $this->read('A:C');
-        
+
         return end($values); // Get the last row correctly
     }
 

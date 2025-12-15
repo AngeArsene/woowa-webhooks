@@ -48,7 +48,7 @@ final class Application
     /**
      * @var string $status The current status of the application.
      */
-    private string $status;
+    private ?string $status;
 
     /**
      * @var WooCommerceApi $woocommerce An instance of the WooCommerceApi class used to interact with the WooCommerce API.
@@ -146,7 +146,7 @@ final class Application
     private function process(array $payload): void
     {
         // Determine the status from the payload, using 'status' if available, otherwise fallback to 'order_status'.
-        $this->status = $payload['status'] ?? $payload['order_status'];
+        $this->status = $payload['status'] ?? $payload['order_status'] ?? null;
 
         // Switch based on the status of the payload
         switch ($this->status) {

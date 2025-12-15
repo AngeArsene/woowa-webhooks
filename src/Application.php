@@ -78,14 +78,10 @@ final class Application
      */
     public static function init_env(): void
     {
-        $env_dir = self::HOME_DIR;
+        $env_dir = realpath(Application::ENV_DIR)
+            ? Application::ENV_DIR
+            : Application::HOME_DIR;
 
-        // Candidate external credentials directory
-        $externalDir = realpath(self::ENV_DIR);
-
-        if ($externalDir !== false && is_dir($externalDir)) {
-            $env_dir = $externalDir;
-        }
         // Create a Dotenv instance and load environment variables
         $dotenv = Dotenv::createImmutable($env_dir);
         $dotenv->load();

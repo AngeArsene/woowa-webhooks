@@ -53,7 +53,10 @@ final class GoogleSheets
         $this->google_client = new Client(); // Create a new Google client
         $this->google_client->setApplicationName("Google Sheets API PHP"); // Set the application name
         $this->google_client->setScopes([Sheets::SPREADSHEETS]); // Set the required scopes
-        $this->google_client->setAuthConfig(Application::HOME_DIR . 'files/credentials.json'); // Set the authentication configuration
+
+        $file_path = (realpath(Application::ENV_DIR) ? Application::ENV_DIR : Application::HOME_DIR) . '/credentials.json';
+
+        $this->google_client->setAuthConfig($file_path); // Set the authentication configuration
         $this->google_client->setAccessType('online'); // Set the access type
     }
 

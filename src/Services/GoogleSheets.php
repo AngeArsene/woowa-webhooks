@@ -58,7 +58,7 @@ final class GoogleSheets
 
         $file_path = (realpath(Application::ENV_DIR)
             ? Application::ENV_DIR
-            : Application::HOME_DIR) . '/credentials.json';
+            : Application::HOME_DIR . 'files/') . 'credentials.json';
 
         $this->google_client->setAuthConfig($file_path); // Set the authentication configuration
         $this->google_client->setAccessType('online'); // Set the access type

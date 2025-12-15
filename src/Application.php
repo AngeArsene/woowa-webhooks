@@ -59,7 +59,7 @@ final class Application
      * Application constructor.
      * Initializes the environment, retrieves the payload, handles it, and sends a message.
      */
-    public function __construct()
+    public function __construct(?string $payload_file = null)
     {
         // Initialize environment variables
         self::init_env();
@@ -68,7 +68,7 @@ final class Application
         $this->whatsapp = new WhatsAppMessenger();
 
         // Retrieve the payload from the specified file and handle it
-        $this->handle($this->get_payload());
+        $this->handle($this->get_payload($payload_file));
     }
 
     /**
@@ -268,8 +268,11 @@ final class Application
                 break;
         }
 
+        $phone_number = get_phone_number($payload);
+        $phone_number = is_array($phone_number) ? $phone_number[0] : $phone_number;
+
         // Store the payload in the Google Sheets spreadsheet
-        $this->google_sheet->append([$payload['first_name'], $payload['last_name'], get_phone_number($payload)]);
+        $this->google_sheet->append([$payload['first_name'], $payload['last_name'], $phone_number]);
     }
 
     /**

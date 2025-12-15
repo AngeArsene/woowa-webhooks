@@ -10,4 +10,4 @@ require 'vendor/autoload.php';
 use WoowaWebhooks\Application;
 
 // Instantiate the Application class
-$application = new Application();
+$application = new Application(getopt('', ['file:'])['file'] ?? null);
